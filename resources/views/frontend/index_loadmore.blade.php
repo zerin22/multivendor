@@ -9,7 +9,7 @@
 <!-- 1st tab end -->
 <!-- 2nd tab start -->
 @foreach ($categories as $category)
-<div class="tab-pane fade" id="tab-product--{{ $category->category_name }}">
+<div class="tab-pane fade" id="tab-product--{{ $category->id }}">
     @php
         $cat_wise_pro = App\Models\Product::where('category_id', $category->id)->get();
     @endphp

@@ -57,6 +57,12 @@ class VendorController extends Controller
         return redirect()->route('vendor.index')->with('success', 'Vendor Created Successfully');
     }
 
+    public function show($id)
+    {
+        $vendor = Vendor::findOrFail($id);
+        return view('vendor.show', compact('vendor'));
+    }
+
     public function destroy($id)
     {
         $vendor = Vendor::find($id);

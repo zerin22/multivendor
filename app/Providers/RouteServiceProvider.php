@@ -17,7 +17,23 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    public const HOME = '/home';
+    // public const HOME = '/dashboard';
+
+    protected function redirectTo() {
+        $role = Auth()->user()->role;
+        switch ($role) {
+          case 1:
+            return '/user/dashboard';
+            break;
+          case 2:
+            return '/admin/dashboard';
+            break;
+          case 3:
+            return '/vendor/dashboard';
+            break;
+        }
+      }
+
 
     /**
      * The controller namespace for the application.

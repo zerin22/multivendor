@@ -78,7 +78,8 @@ class CartController extends Controller
                     }
                 } else {
                     $discount = 0;
-                    return redirect('cart')->with('coupon_error', 'ei name kono coupon nai');
+                    // return redirect('cart')->with('coupon_error', 'ei name kono coupon nai');
+                    return redirect('cart')->with('coupon_error', 'This coupon donot exists');
                 }
             } else {
                 $discount = 0;

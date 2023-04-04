@@ -183,15 +183,12 @@
         $(document).ready(function() {
             $('#country_dropdown').select2();
             $('#country_dropdown').change(function() {
-
                 var country_id = $(this).val();
-
                 $.ajaxSetup({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     }
                 });
-
                 $.ajax({
                     type: 'POST',
                     url: '/get/cities',
@@ -199,6 +196,7 @@
                         country_id: country_id
                     },
                     success: function(data) {
+                        console.log('data',data)
                         $('#city_dropdown').html(data)
                     }
                 })

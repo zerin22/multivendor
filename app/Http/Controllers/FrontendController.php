@@ -22,17 +22,18 @@ class FrontendController extends Controller
         $products = Product::take(4)->get();
         // $banners     = Banner::where('status', 'show')->limit(3)->get();
         $banners     = Banner::limit(3)->get();
-        return view('frontend.index', compact('categories', 'allproducts', 'banners', 'deals','products'));
+
+        return view('frontend.index', compact('categories', 'banners', 'deals','products'));
     }
 
     public function moreProduct(Request $request){
         // $blogs = Blog::orderBy('created_at', 'desc')->skip($request->count)->take(3)->get();
-
+        $categories  = Category::where('status', 'show')->get();
         $products = Product::skip($request->count)->take(4)->get();
-        $view = view('frontend.index_loadmore',compact('allproducts'));
+        $view = view('frontend.index_loadmore',compact('categories','products'));
 
         $data = $view->render();
-        $count = $request->count + 4;
+        $count = $request->count + 1;
         $product_count = $products->count();
 
         return response()->json(['data'=>$data, 'count'=> $count,'product_count'=>$product_count]);

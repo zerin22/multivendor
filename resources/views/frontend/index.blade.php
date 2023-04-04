@@ -132,7 +132,7 @@
                                         href="#tab-product--all">All</a></li>
                                 @foreach ($categories as $category)
                                     <li class="nav-item"><a class="nav-link" data-bs-toggle="tab"
-                                            href="#tab-product--{{ $category->category_name }}">{{ $category->category_name }}</a>
+                                            href="#tab-product--{{ $category->id }}">{{ $category->category_name }}</a>
                                     </li>
                                 @endforeach
                             </ul>
@@ -148,9 +148,9 @@
                 <div class="col">
                     <div class="tab-content mb-30px0px"  id="product_data">
                         <!-- 1st tab start -->
-                        {{-- <div class="tab-pane fade show active" id="tab-product--all">
+                        <div class="tab-pane fade show active" id="tab-product--all">
                             <div class="row">
-                                @foreach ($allproducts as $product)
+                                @foreach ($products as $product)
                                     @include('parts.product_thumb')
                                 @endforeach
                             </div>
@@ -158,21 +158,22 @@
                         <!-- 1st tab end -->
                         <!-- 2nd tab start -->
                         @foreach ($categories as $category)
-                            <div class="tab-pane fade" id="tab-product--{{ $category->category_name }}">
-                                @php
-                                    $cat_wise_pro = App\Models\Product::where('category_id', $category->id)->get();
-                                @endphp
-                                <div class="row">
-                                    @forelse ($cat_wise_pro as $product)
-                                        @include('parts.product_thumb')
-                                    @empty
-                                        <div class="alert alert-dark">No Product</div>
-                                    @endforelse
-                                </div>
+                        <div class="tab-pane fade" id="tab-product--{{ $category->id }}">
+                            @php
+                                $cat_wise_pro = App\Models\Product::where('category_id', $category->id)->get();
+                            @endphp
+                            <div class="row">
+                                @forelse ($cat_wise_pro as $product)
+                                    @include('parts.product_thumb')
+                                @empty
+                                    <div class="alert alert-dark">No Product</div>
+                                @endforelse
                             </div>
-                        @endforeach --}}
+                        </div>
+                        @endforeach
+                        <!-- 2nd tab end -->
 
-                        @include('frontend.index_loadmore')
+                        {{-- @include('frontend.index_loadmore') --}}
 
                     </div>
                     <div class="load_more_button">
@@ -1423,12 +1424,14 @@
     <!--  Blog area End -->
 @endsection
 
-<!-- Scripts Part -->
+@section('footer_scripts')
+
 <script>
     $(document).ready(function () {
-        $('.load_more').click(function () {
+        $('#load-more').click(function () {
             let count = $(this).attr('data-count');
             let load_more = $(this);
+            // alert(count)
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -1452,3 +1455,5 @@
         });
     });
 </script>
+
+@endsection

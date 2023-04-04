@@ -25,6 +25,7 @@ use App\Http\Controllers\SslCommerzPaymentController;
 Auth::routes();
 
 Route::get('/', [FrontendController::class, 'index'])->name('index');
+
 Route::post('/loadmore', [FrontendController::class, 'moreProduct'])->name('product.load-more');
 
 Route::get('/shop', [FrontendController::class, 'shop'])->name('shop');
@@ -107,7 +108,7 @@ Route::group(['prefix' => 'user', 'middleware'=> ['user', 'auth'],], function() 
 
     Route::post('/checkout', [CheckoutController::class, 'checkout'])->name('checkout');
     Route::post('/checkout/post', [CheckoutController::class, 'checkout_post'])->name('checkout_post');
-    Route::post('/get/cities', [CheckoutController::class, 'get_cities'])->name('get_cities');
+    Route::post('/get/cities', [CheckoutController::class, 'get_cities'])->name('get_cities')->middleware("cors");
 
     // my orders
     Route::get('/my_order/index', [HomeController::class, 'my_order'])->name('my_order.index');

@@ -32,6 +32,7 @@ class CheckoutController extends Controller
 
     public function checkout_post(Request $request)
     {
+        return $request->all();
         $request->validate([
             'order_notes' => 'nullable',
             '*' => 'required',
@@ -87,11 +88,11 @@ class CheckoutController extends Controller
     public function get_cities(Request $request)
     {
         $show_city = "<option value=''>Select City</option>";
-        $cities = City::where('country_id', $request->country_id)->get(['id', 'name']);
+        $cities = City::where('state_id', $request->country_id)->where('status', 'active')->get(['id', 'name']);
         foreach ($cities as $city) {
             // echo $city->name .= "<option value='$city->id'>$city->name</option>";
             $show_city .= "<option value='$city->id'>$city->name</option>";
         }
-        echo $show_city;
+        return $show_city;
     }
 }
