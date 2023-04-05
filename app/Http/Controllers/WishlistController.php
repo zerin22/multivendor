@@ -16,7 +16,7 @@ class WishlistController extends Controller
         ]);
     }
 
-    public function insert($product_id, Request $request)
+    public function insert($product_id)
     {
         Wishlist::insert([
             'user_id'    => auth()->id(),
@@ -31,5 +31,29 @@ class WishlistController extends Controller
     {
         Wishlist::find($wishlist_id)->delete();
         return back();
+    }
+
+    public function wlishlistCheck(Request $request)
+    {
+
+        $wishList = Wishlist::where('user_id', auth()->id())->where('product_id', $request->product_id)->exists();
+        if(!$wishList){
+            Wishlist::insert([
+                'user_id'    => auth()->id(),
+                'product_id' => $request->product_id,
+                'created_at' => Carbon::now()
+            ]);
+
+            return response()->json([
+                'status' => 200,
+                'message' => 'Wishlist Updated'
+            ]);
+        }else{
+            Wishlist::where('user_id', auth()->id())->where('product_id', $request->product_id)->delete();
+            return response()->json([
+                'status' => 400,
+                'message' => 'Remove From Wishlist'
+            ]);
+        }
     }
 }

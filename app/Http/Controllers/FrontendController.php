@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\{Category, Product};
+use App\Models\{Category, Order_detail, Product};
 use App\Models\Banner;
 use App\Models\Deal;
 use App\Models\Rating;
@@ -11,6 +11,7 @@ use App\Models\Size;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class FrontendController extends Controller
 {
@@ -20,10 +21,15 @@ class FrontendController extends Controller
         $categories  = Category::where('status', 'show')->get();
         // $allproducts = Product::take(4)->get();
         $products = Product::take(4)->get();
+        $allproducts = Product::all();
+        $latestProducts = Product::latest()->get();
         // $banners     = Banner::where('status', 'show')->limit(3)->get();
         $banners     = Banner::limit(3)->get();
+        return $bestSeller = Order_detail::groupBy('product_id')
+        ->having( DB::raw('count(*) as total'),'<', 2)
+        ->orderBy('total','desc')->get();
 
-        return view('frontend.index', compact('categories', 'banners', 'deals','products'));
+        return view('frontend.index', compact('categories', 'banners', 'deals','products','allproducts', 'latestProducts', 'bestSeller'));
     }
 
     public function moreProduct(Request $request){
@@ -95,9 +101,17 @@ class FrontendController extends Controller
         return view('frontend.productdetails', compact('productdetails', 'related_products', 'wishlist_status', 'wishlist_id', 'reviews'));
     }
 
-    public function categorywiseproducts($category_id)
+    // public function categorywiseproducts($category_id)
+    // {
+    //     $category_name = Category::findOrFail($category_id);
+    //     $categorywiseproducts =  Product::where('category_id', $category_id)->get();
+    //     return view('frontend.categorywiseproducts', compact('categorywiseproducts', 'category_name'));
+    // }
+
+    public function categorywiseproducts($slug)
     {
-        $category_name = Category::findOrFail($category_id);
+        $category_name = Category::where('slug', $slug)->firstOrFail();
+        $category_id = $category_name->id;
         $categorywiseproducts =  Product::where('category_id', $category_id)->get();
         return view('frontend.categorywiseproducts', compact('categorywiseproducts', 'category_name'));
     }

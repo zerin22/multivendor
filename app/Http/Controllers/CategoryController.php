@@ -39,6 +39,7 @@ class CategoryController extends Controller
 
         Category::insert([
             'category_name'    => $request->category_name,
+            'slug'             => $request->slug,
             'category_tagline' => $request->category_tagline,
             'category_photo'   => $new_name,
             'created_at'       => Carbon::now(),
@@ -75,6 +76,7 @@ class CategoryController extends Controller
 
         $category->update([
             'category_name'    => $request->category_name,
+            'slug'             => $request->slug,
             'category_tagline' => $request->category_tagline,
             'status'           => $request->status,
         ]);

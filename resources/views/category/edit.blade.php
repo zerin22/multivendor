@@ -23,8 +23,13 @@
                 </div>
                 <div class="form-group">
                     <label for="category_name">Category Name</label>
-                    <input type="text" class="form-control" id="category_name" name="category_name"
+                    <input type="text" id="title" class="form-control" id="category_name" name="category_name"
                         value="{{ $category->category_name }}">
+                </div>
+                <div class="form-group">
+                    <label for="category_name">Category slug</label>
+                    <input type="text" id="slug" class="form-control @error('slug') is-invalid @enderror" id="slug"
+                        name="slug" value="{{ $category->slug }}">
                 </div>
                 <div class="form-group">
                     <label for="category_tagline">Category Tagline</label>
@@ -44,4 +49,15 @@
             </form>
         </div>
     </div>
+@endsection
+
+
+@section('footer_script')
+
+    <script type="text/javascript">
+        $('#title').keyup(function() {
+        $('#slug').val($(this).val().toLowerCase().split(',').join('').replace(/\s/g,"-").replace(/\?/g, '-'));
+        });
+    </script>
+
 @endsection

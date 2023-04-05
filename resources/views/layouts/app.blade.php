@@ -60,11 +60,26 @@
 
                             <!--<li class="menu-title">Navigation</li>-->
                             <li>
-                                <a href="#">
+                                @if (Auth::user()->role == 3)
+                                <a href="{{ route('vendor.dashboard') }}">
                                     <i class="fi-air-play"></i><span
                                         class="badge badge-danger badge-pill pull-right">7</span> <span> Dashboard
                                     </span>
                                 </a>
+                                @elseif(Auth::user()->role == 2)
+                                    <a href="{{ route('admin.dashboard') }}">
+                                        <i class="fi-air-play"></i><span
+                                            class="badge badge-danger badge-pill pull-right">7</span> <span> Dashboard
+                                        </span>
+                                    </a>
+                                @else
+                                    <a href="{{ route('user.dashboard') }}">
+                                        <i class="fi-air-play"></i><span
+                                            class="badge badge-danger badge-pill pull-right">7</span> <span> Dashboard
+                                        </span>
+                                    </a>
+                                @endif
+
                             </li>
 
                             {{-- <li>
@@ -447,9 +462,7 @@ p<![endif]-->
     <!-- App js -->
     <script src="{{ asset('dashboard/assets') }}/js/jquery.core.js"></script>
     <script src="{{ asset('dashboard/assets') }}/js/jquery.app.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"
-        integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
     @yield('footer_script')

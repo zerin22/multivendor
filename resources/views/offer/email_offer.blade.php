@@ -18,7 +18,7 @@
                         <th scope="col">Customer Name</th>
                         <th scope="col">Email</th>
                         <th scope="col">Image</th>
-                        <th scope="col">Action</th>
+                        {{-- <th scope="col">Action</th> --}}
                     </tr>
                 </thead>
                 <tbody>
@@ -28,17 +28,17 @@
                             <td>{{ $customer->name }}</td>
                             <td>{{ $customer->email }}</td>
                             <td>
-                                <img src="{{ asset('uploads/profile_photos') }}/{{ $customer->image }}" alt=""
+                                <img src="{{ asset('uploads/profile_photos') }}/{{ $customer->profile_photo }}" alt=""
                                     width="100">
                             </td>
-                            <td>
+                            {{-- <td>
                                 <a href="#" class="btn btn-success">Edit</a>
                                 <form action="#" method="post">
                                     @csrf
                                     @method('DELETE')
                                     <button class="btn btn-danger">Delete</button>
                                 </form>
-                            </td>
+                            </td> --}}
                         </tr>
                     @empty
                         <div class="alert alert-dark">No Record</div>

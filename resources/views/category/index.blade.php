@@ -24,7 +24,7 @@
                 <tbody>
                     @forelse ($categories as $category)
                         <tr>
-                            <th scope="row">1 </th>
+                            <th scope="row">{{ $loop->index+1 }}</th>
                             <td>{{ $category->category_name }}</td>
                             <td>
                                 <img src="{{ asset('uploads/category_photos') }}/{{ $category->category_photo }}" alt=""

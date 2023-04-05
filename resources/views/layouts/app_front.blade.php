@@ -22,6 +22,7 @@
     <link rel="stylesheet" href="{{ asset('frontend/assets') }}/css/plugins/plugins.min.css" />
     <link rel="stylesheet" href="{{ asset('frontend/assets') }}/css/style.min.css">
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
     <!-- Main Style -->
     <link rel="stylesheet" href="{{ asset('frontend/assets') }}/css/style.css" />
 
@@ -663,11 +664,25 @@
     <script src="{{ asset('frontend/assets') }}/js/vendor/vendor.min.js"></script>
     <script src="{{ asset('frontend/assets') }}/js/plugins/plugins.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
     <!-- Main Js -->
     <script src="{{ asset('frontend/assets') }}/js/main.js"></script>
 
     @yield('footer_scripts')
+
+
+    @if (Session::has('success'))
+        <script>
+            toastr.success("{!! Session::get('success') !!}")
+        </script>
+    @endif
+    @if (Session::has('delete'))
+        <script>
+            toastr.error("{!! Session::get('delete') !!}")
+        </script>
+    @endif
+
 
 </body>
 

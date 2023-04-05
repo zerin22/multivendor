@@ -17,10 +17,18 @@
                 @csrf
                 <div class="form-group">
                     <label for="category_name">Category Name</label>
-                    <input type="text" class="form-control @error('category_name') is-invalid @enderror" id="category_name"
+                    <input type="text" id="title" class="form-control @error('category_name') is-invalid @enderror" id="category_name"
                         name="category_name" value="{{ old('category_name') }}">
                 </div>
                 @error('category_name')
+                    <div class="text-danger">{{ $message }}</div>
+                @enderror
+                <div class="form-group">
+                    <label for="category_name">Category slug</label>
+                    <input type="text" id="slug" class="form-control @error('slug') is-invalid @enderror" id="slug"
+                        name="slug" value="{{ old('slug') }}">
+                </div>
+                @error('slug')
                     <div class="text-danger">{{ $message }}</div>
                 @enderror
                 <div class="form-group">
@@ -47,11 +55,18 @@
         </div>
     </div>
 @endsection
-{{-- @section('footer_script')
-    <script>
+@section('footer_script')
+    {{-- <script>
         document.getElementById('category_photo').onchange = function() {
             var src = URL.createObjectURL(this.files[0])
             document.getElementById('output').src = src
         }
+    </script> --}}
+
+    <script type="text/javascript">
+        $('#title').keyup(function() {
+        $('#slug').val($(this).val().toLowerCase().split(',').join('').replace(/\s/g,"-").replace(/\?/g, '-'));
+        });
     </script>
-@endsection --}}
+
+@endsection

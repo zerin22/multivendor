@@ -9,7 +9,7 @@
                     <h2 class="breadcrumb-title">{{ $category_name->category_name }}</h2>
                     <!-- breadcrumb-list start -->
                     <ul class="breadcrumb-list">
-                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                        <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
                         <li class="breadcrumb-item"><a href="">{{ $category_name->category_name }}</a></li>
                     </ul>
                     <!-- breadcrumb-list end -->

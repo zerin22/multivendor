@@ -30,6 +30,21 @@ class LoginController extends Controller
 
 
 
+    // protected function redirectTo() {
+    //     $role = Auth()->user()->role;
+    //     switch ($role) {
+    //       case 1:
+    //         return '/user/dashboard';
+    //         break;
+    //       case 2:
+    //         return '/admin/dashboard';
+    //         break;
+    //       case 3:
+    //         return '/vendor/dashboard';
+    //         break;
+    //     }
+    // }
+
 
     /**
      * Create a new controller instance.

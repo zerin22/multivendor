@@ -37,7 +37,8 @@ Route::get('/product/alldeals', [FrontendController::class, 'alldeals'])->name('
 Route::post('/product/deal/store', [FrontendController::class, 'dealstore'])->name('deal.store');
 // Route::post('/price_filter', [FrontendController::class, 'price_filter'])->name('price_filter');
 Route::get('product/details/{slug}', [FrontendController::class, 'product_details'])->name('product.details');
-Route::get('categorywise/{category_id}', [FrontendController::class, 'categorywiseproducts'])->name('categorywiseproducts');
+// Route::get('categorywise/{category_id}', [FrontendController::class, 'categorywiseproducts'])->name('categorywiseproducts');
+Route::get('category/{slug}', [FrontendController::class, 'categorywiseproducts'])->name('categorywiseproducts');
 
 // Route::get('/home', [HomeController::class, 'index'])->name('home');
 
@@ -98,6 +99,8 @@ Route::group(['prefix' => 'user', 'middleware'=> ['user', 'auth'],], function() 
     Route::resource('wishlist', WishlistController::class);
     Route::get('/wishlist/insert/{product_id}', [WishlistController::class, 'insert'])->name('wishlist.insert');
     Route::get('/wishlist/remove/{wishlist_id}', [WishlistController::class, 'remove'])->name('wishlist.remove');
+
+    Route::post('wishlist/check', [WishlistController::class, 'wlishlistCheck'])->name('wishlist.check');
 
     Route::get('/wishlisttocart/{wishlist_id}', [CartController::class, 'wishlisttocart'])->name('wishlisttocart');
     Route::post('/addtocart/{product_id}', [CartController::class, 'addtocart'])->name('addtocart');
