@@ -1,11 +1,7 @@
-@extends('layouts.app')
-@section('breadcrumb')
-    <h4 class="page-title">Vendor </h4>
-    <ol class="breadcrumb float-sm-left">
-        <li class="breadcrumb-item">Home</li>
-        <li class="breadcrumb-item">Vendor</li>
-    </ol>
-@endsection
+@extends('layouts.backend.backend_master')
+@section('title', 'Vendor Show')
+@section('vendor', 'active')
+@section('vendor.create', 'active')
 
 @section('content')
     <div class="mb-3">

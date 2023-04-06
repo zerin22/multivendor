@@ -65,12 +65,13 @@ class VendorController extends Controller
 
     public function destroy($id)
     {
-        $vendor = Vendor::find($id);
+        $user_id = Vendor::find($id)->user_id;
+        $vendor = User::find($user_id);
         if($vendor->vendor_photo){
             unlink(base_path('public/uploads/vendor_photos/' . $vendor->vendor_photo));
         }
-
         $vendor->delete();
+        Vendor::find($id)->delete();
         return back()->with('delete', 'Vendor Deleted Successfully');
     }
 

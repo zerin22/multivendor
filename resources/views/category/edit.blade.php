@@ -1,11 +1,7 @@
-@extends('layouts.app')
-@section('breadcrumb')
-    <h4 class="page-title">Edit Category </h4>
-    <ol class="breadcrumb float-sm-left">
-        <li class="breadcrumb-item">Home</li>
-        <li class="breadcrumb-item">category</li>
-    </ol>
-@endsection
+@extends('layouts.backend.backend_master')
+@section('title', 'Category Update')
+@section('category', 'active')
+@section('category.index', 'active')
 
 @section('content')
     <div class="row">

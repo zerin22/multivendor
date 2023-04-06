@@ -1,11 +1,7 @@
-@extends('layouts.app')
-@section('breadcrumb')
-    <h4 class="page-title">Add Category </h4>
-    <ol class="breadcrumb float-sm-left">
-        <li class="breadcrumb-item">Home</li>
-        <li class="breadcrumb-item">category</li>
-    </ol>
-@endsection
+@extends('layouts.backend.backend_master')
+@section('title', 'Category Add')
+@section('category', 'active')
+@section('category.add', 'active')
 
 @section('content')
     <div class="mb-3">
@@ -55,13 +51,7 @@
         </div>
     </div>
 @endsection
-@section('footer_script')
-    {{-- <script>
-        document.getElementById('category_photo').onchange = function() {
-            var src = URL.createObjectURL(this.files[0])
-            document.getElementById('output').src = src
-        }
-    </script> --}}
+@section('script')
 
     <script type="text/javascript">
         $('#title').keyup(function() {

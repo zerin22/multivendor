@@ -368,7 +368,7 @@
                                         <!-- Single Prodect -->
                                         <div class="product">
                                             <div class="thumb">
-                                                <a href="single-product.html" class="image">
+                                                <a href="{{ route('product.details', $product->relationwithproduct->product_slug) }}" class="image">
                                                     <img src="{{ asset('uploads/product_photos') }}/{{ $product->relationwithproduct->product_photo }}"
                                                         alt="Product" />
                                                 </a>
@@ -377,8 +377,8 @@
                                                         title="Wishlist">
                                                         <i class="{{ wishlistcheck( $product->product_id) ? 'fa fa-heart text-danger' : 'fa fa-heart-o' }}"></i>
                                                     </a>
-                                                    <a href="#" class="action quickview" data-link-action="quickview" title="Quick view"
-                                                        data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="pe-7s-search"></i></a>
+                                                    {{-- <a href="#" class="action quickview" data-link-action="quickview" title="Quick view"
+                                                        data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="pe-7s-search"></i></a> --}}
                                                 </div>
                                                 <a href="{{ route('product.details', $product->relationwithproduct->product_slug) }}" title="Add To Cart"
                                                     class=" add-to-cart">Add
@@ -412,7 +412,7 @@
                                         </div>
                                     </div>
                                     @empty
-
+                                        <h2>No Product Found</h2>
                                     @endforelse
 
                                     {{-- <div class="new-product-item swiper-slide">
@@ -1056,6 +1056,38 @@
             })
         });
     });
-</script>
+
+
+    $(document).ready(function() {
+        $('.wishlist').click(function() {
+            // alert ('hi')
+        var product_id = $(this).attr('product_id');
+        // alert(product_id)
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+            $.ajax({
+                type: "POST",
+                url: '{{ route('wishlist.check') }}',
+                data: {
+                    product_id : product_id,
+                },
+                success: function(data){
+                    // console.log(data);
+                    location.reload()
+                    if(data.status == 200){
+                        toastr.success(data.message)
+                    }else{
+                        toastr.error(data.message)
+                    }
+
+                }
+            });
+        })
+    });
+
+    </script>
 
 @endsection

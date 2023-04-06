@@ -70,8 +70,8 @@
                                     class="header-action-btn login-btn">{{ auth()->user()->name }}</a>
                                 @endif
                             @else
-                                <a href="{{ route('login') }}" class="header-action-btn login-btn" data-bs-toggle="modal"
-                                    data-bs-target="#loginActive">Sign In</a>
+                                <a class="header-action-btn login-btn" data-bs-toggle="modal"
+                                    data-bs-target="#loginActive" style="cursor: pointer">Sign In</a>
                             @endauth
                             <!-- Single Wedge Start -->
                             <a href="#" class="header-action-btn" data-bs-toggle="modal" data-bs-target="#searchActive">

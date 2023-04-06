@@ -1,12 +1,7 @@
-
-@extends('layouts.app')
-@section('breadcrumb')
-    <h4 class="page-title">Add Coupon </h4>
-    <ol class="breadcrumb float-sm-left">
-        <li class="breadcrumb-item">Home</li>
-        <li class="breadcrumb-item">Coupon</li>
-    </ol>
-@endsection
+@extends('layouts.backend.backend_master')
+@section('title', 'Coupon Add')
+@section('coupon', 'active')
+@section('coupon.add', 'active')
 
 @section('content')
     <div class="mb-3">
@@ -53,11 +48,4 @@
         </div>
     </div>
 @endsection
-@section('footer_script')
-    {{-- <script>
-        document.getElementById('coupon_photo').onchange = function() {
-            var src = URL.createObjectURL(this.files[0])
-            document.getElementById('output').src = src
-        }
-    </script>
-@endsection --}}
+

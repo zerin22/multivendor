@@ -1,11 +1,7 @@
-@extends('layouts.app')
-@section('breadcrumb')
-    <ol class="breadcrumb float-sm-left">
-        <li class="breadcrumb-item">Home</li>
-        <li class="breadcrumb-item">Banner</li>
-    </ol><br>
-    <h4 class="page-title">List Banner </h4>
-@endsection
+@extends('layouts.backend.backend_master')
+@section('title', 'Banner List')
+@section('banner', 'active')
+@section('banner.index', 'active')
 
 @section('content')
     <a href="{{ route('banner.create') }}" class="mb-3 btn btn-dark">Add Banner</a>
@@ -51,15 +47,4 @@
     </div>
 @endsection
 
-@section('footer_script')
-    @if (Session::has('success'))
-        <script>
-            toastr.success("{!! Session::get('success') !!}")
-        </script>
-    @endif
-    @if (Session::has('delete'))
-        <script>
-            toastr.error("{!! Session::get('delete') !!}")
-        </script>
-    @endif
-@endsection
+

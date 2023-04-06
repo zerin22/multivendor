@@ -1,11 +1,7 @@
-@extends('layouts.app')
-@section('breadcrumb')
-    <ol class="breadcrumb float-sm-left">
-        <li class="breadcrumb-item">Home</li>
-        <li class="breadcrumb-item">Banner</li>
-    </ol><br>
-    <h4 class="page-title">List Banner </h4>
-@endsection
+@extends('layouts.backend.backend_master')
+@section('title', 'Coupon List')
+@section('coupon', 'active')
+@section('coupon.index', 'active')
 
 @section('content')
     <a href="{{ route('banner.create') }}" class="mb-3 btn btn-dark">Add Banner</a>

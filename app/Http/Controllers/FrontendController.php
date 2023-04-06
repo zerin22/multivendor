@@ -25,8 +25,9 @@ class FrontendController extends Controller
         $latestProducts = Product::latest()->get();
         // $banners     = Banner::where('status', 'show')->limit(3)->get();
         $banners     = Banner::limit(3)->get();
-        return $bestSeller = Order_detail::groupBy('product_id')
-        ->having( DB::raw('count(*) as total'),'<', 2)
+        $bestSeller = Order_detail::select('product_id', DB::raw('count(*) as total'))
+        ->groupBy('product_id')
+        ->having('total', '>', 5)
         ->orderBy('total','desc')->get();
 
         return view('frontend.index', compact('categories', 'banners', 'deals','products','allproducts', 'latestProducts', 'bestSeller'));

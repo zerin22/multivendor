@@ -1,11 +1,7 @@
-@extends('layouts.app')
-@section('breadcrumb')
-    <h4 class="page-title">Product </h4>
-    <ol class="breadcrumb float-sm-left">
-        <li class="breadcrumb-item">Home</li>
-        <li class="breadcrumb-item">Product</li>
-    </ol>
-@endsection
+@extends('layouts.backend.backend_master')
+@section('title', 'Product Show')
+@section('product', 'active')
+@section('product.index', 'active')
 
 @section('content')
     <div class="mb-3">

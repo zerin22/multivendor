@@ -1,9 +1,7 @@
-@extends('layouts.app')
-@section('breadcrumb')
-    <ol class="breadcrumb float-sm-left">
-        <li class="breadcrumb-item"><a href="{{ route('index') }}" class="btn btn-dark">Home</a></li>
-    </ol>
-@endsection
+@extends('layouts.backend.backend_master')
+@section('title', 'Dashboard')
+@section('dashboard', 'active')
+@section('content')
 
 @section('content')
     <div class="container-fluid">

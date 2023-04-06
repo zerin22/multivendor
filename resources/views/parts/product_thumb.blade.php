@@ -8,14 +8,29 @@
             <span class="badges">
                 <span class="new">New</span>
             </span>
-            <div class="actions">
-                <a  class="action wishlist" product_id="{{ $product->id }}"
-                    title="Wishlist">
-                    <i class="{{ wishlistcheck($product->id) ? 'fa fa-heart text-danger' : 'fa fa-heart-o' }}"></i>
-                </a>
-                <a href="#" class="action quickview" data-link-action="quickview" title="Quick view"
-                    data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="pe-7s-search"></i></a>
-            </div>
+            @auth
+                @if (Auth::user()->role == 1)
+                <div class="actions">
+                    <a  class="action wishlist" product_id="{{ $product->id }}"
+                        title="Wishlist">
+                        <i class="{{ wishlistcheck($product->id) ? 'fa fa-heart text-danger' : 'fa fa-heart-o' }}"></i>
+                    </a>
+                    <a href="#" class="action quickview" data-link-action="quickview" title="Quick view"
+                        data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="pe-7s-search"></i></a>
+                </div>
+                @endif
+            @else
+                <div class="actions">
+                    <a  class="action wishlist" data-bs-toggle="modal"
+                    data-bs-target="#loginActive"
+                        title="Wishlist">
+                        <i class="redheart {{ wishlistcheck($product->id) ? 'fa fa-heart text-danger' : 'fa fa-heart-o' }}"></i>
+                    </a>
+                    <a href="#" class="action quickview" data-link-action="quickview" title="Quick view"
+                        data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="pe-7s-search"></i></a>
+                </div>
+            @endauth
+
             <a href="{{ route('product.details', $product->product_slug) }}" title="Add To Cart"
                 class=" add-to-cart">Add
                 To Cart</a>
@@ -72,6 +87,7 @@
                 success: function(data){
                     // console.log(data);
                     location.reload()
+                    // $(this).addClass('fa fa-heart text-danger')
                     if(data.status == 200){
                         toastr.success(data.message)
                     }else{

@@ -1,11 +1,7 @@
-@extends('layouts.app')
-@section('breadcrumb')
-    <h4 class="page-title">Edit Product </h4>
-    <ol class="breadcrumb float-sm-left">
-        <li class="breadcrumb-item">Home</li>
-        <li class="breadcrumb-item">Product</li>
-    </ol>
-@endsection
+@extends('layouts.backend.backend_master')
+@section('title', 'Product Update')
+@section('product', 'active')
+@section('product.index', 'active')
 
 {{-- {{ route('product.update', $product->id) }} --}}
 @section('content')

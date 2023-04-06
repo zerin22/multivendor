@@ -1,11 +1,7 @@
-@extends('layouts.app')
-@section('breadcrumb')
-    <ol class="breadcrumb float-sm-left">
-        <li class="breadcrumb-item">Home</li>
-        <li class="breadcrumb-item">category</li>
-    </ol><br>
-    <h4 class="page-title">List Category </h4>
-@endsection
+@extends('layouts.backend.backend_master')
+@section('title', 'Category List')
+@section('category', 'active')
+@section('category.index', 'active')
 
 @section('content')
     <a href="{{ route('category.create') }}" class="mb-3 btn btn-dark">Add Category</a>
@@ -55,7 +51,7 @@
     </div>
 @endsection
 
-@section('footer_script')
+{{-- @section('footer_script')
     @if (Session::has('success'))
         <script>
             toastr.success("{!! Session::get('success') !!}")
@@ -66,4 +62,4 @@
             toastr.error("{!! Session::get('delete') !!}")
         </script>
     @endif
-@endsection
+@endsection --}}

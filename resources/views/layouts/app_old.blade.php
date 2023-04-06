@@ -142,11 +142,19 @@
                                         <li><a href="{{ route('coupon.index') }}">Coupon List</a></li>
                                     </ul>
                                 </li>
+
                                 <li>
                                     <a href="{{ route('all.orders') }}"><i class="fi-layers"></i> <span> All
                                             Orders
                                         </span></a>
                                 </li>
+
+                                <li>
+                                    <a href="{{ route('contact.index') }}"><i class="fi-layers"></i> <span> All
+                                            Contact
+                                        </span></a>
+                                </li>
+
                             @elseif(Auth::user()->role == 3)
                                 <li>
                                     <a href="javascript: void(0);"><i class="fi-layers"></i> <span> Product
@@ -373,7 +381,7 @@
                                     <!-- item-->
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                         onclick="event.preventDefault();
-                                                                             document.getElementById('logout-form').submit();">
+                                        document.getElementById('logout-form').submit();">
                                         <i class="fa fa-sign-out"></i>{{ __('Logout') }}
                                     </a>
 
@@ -466,6 +474,17 @@ p<![endif]-->
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
     @yield('footer_script')
+
+    @if (Session::has('success'))
+    <script>
+        toastr.success("{!! Session::get('success') !!}")
+    </script>
+    @endif
+    @if (Session::has('delete'))
+        <script>
+            toastr.error("{!! Session::get('delete') !!}")
+        </script>
+    @endif
 
 </body>
 

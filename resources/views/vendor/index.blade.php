@@ -1,11 +1,7 @@
-@extends('layouts.app')
-@section('breadcrumb')
-    <ol class="breadcrumb float-sm-left">
-        <li class="breadcrumb-item">Home</li>
-        <li class="breadcrumb-item">Vendor</li>
-    </ol><br>
-    <h4 class="page-title">Vendor List </h4>
-@endsection
+@extends('layouts.backend.backend_master')
+@section('title', 'Vendor Index')
+@section('vendor', 'active')
+@section('vendor.index', 'active')
 
 @section('content')
     <a href="{{ route('vendor.create') }}" class="mb-3 btn btn-dark">Add Vendor</a>
@@ -43,15 +39,4 @@
     </div>
 @endsection
 
-@section('footer_script')
-    @if (Session::has('success'))
-        <script>
-            toastr.success("{!! Session::get('success') !!}")
-        </script>
-    @endif
-    @if (Session::has('delete'))
-        <script>
-            toastr.error("{!! Session::get('delete') !!}")
-        </script>
-    @endif
-@endsection
+
