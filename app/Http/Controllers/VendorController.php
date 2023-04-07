@@ -20,7 +20,7 @@ class VendorController extends Controller
 
     public function index()
     {
-        $vendors = Vendor::all();
+        $vendors = Vendor::latest()->paginate(1);
         return view('vendor.index', compact('vendors'));
     }
 
@@ -65,8 +65,8 @@ class VendorController extends Controller
 
     public function destroy($id)
     {
-        $user_id = Vendor::find($id)->user_id;
-        $vendor = User::find($user_id);
+        $user_id = Vendor::findOrFail($id)->user_id;
+        $vendor = User::findOrFail($user_id);
         if($vendor->vendor_photo){
             unlink(base_path('public/uploads/vendor_photos/' . $vendor->vendor_photo));
         }
@@ -79,4 +79,14 @@ class VendorController extends Controller
     {
         return view('vendor.dashboard');
     }
+
+    // public function showList(Request $request)
+    // {
+    //     // return $request;
+    //     $vendors = Vendor::latest()->paginate($request->value);
+    //     $view = view('vendor.renderPage', compact('vendors'));
+    //     $data = $view->render();
+    //     return response()->json(['data'=>$data]);
+    // }
 }
+

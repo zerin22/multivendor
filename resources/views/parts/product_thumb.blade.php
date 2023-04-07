@@ -59,7 +59,7 @@
             <span class="price">
                 <span class="new">Vendor:
                     {{-- {{ App\Models\User::find($product->user_id)->name }} --}}
-                    {{ $product->relationtouser->name }}
+                    {{ $product->relationtouser->name ?? '' }}
                 </span>
             </span>
         </div>

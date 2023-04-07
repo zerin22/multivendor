@@ -76,9 +76,14 @@ Route::group(['prefix' => 'admin', 'middleware'=> ['admin', 'auth'],], function(
     Route::get('dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
 
     Route::resource('banner', BannerController::class);
+
     Route::resource('category', CategoryController::class);
+
     Route::resource('coupon', CouponController::class);
+
     Route::resource('vendor', VendorController::class);
+    // Route::post('vendor/list', [VendorController::class, 'showList'])->name('vendor.list');
+
     Route::get('/all/orders', [HomeController::class, 'allorders'])->name('all.orders');
 
     Route::get('/email_offer', [HomeController::class, 'email_offer'])->name('email_offer');
