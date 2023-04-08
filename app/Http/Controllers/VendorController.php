@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\VendorNotification;
+use App\Models\Product;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
@@ -20,7 +21,7 @@ class VendorController extends Controller
 
     public function index()
     {
-        $vendors = Vendor::latest()->paginate(1);
+        $vendors = Vendor::latest()->paginate(10);
         return view('vendor.index', compact('vendors'));
     }
 
@@ -31,10 +32,14 @@ class VendorController extends Controller
 
     public function store(Request $request)
     {
-        $random_password = Str::random(8);
+        // return $request;
+        // $random_password = Str::random(8);
 
         $request->validate([
-            '*' => 'required',
+            'vendor_name' => 'required',
+            'vendor_email' => 'required|email|unique:users,email',
+            'vendor_phone_number' => 'required',
+            'vendor_address' => 'required',
         ]);
 
         $user_info = User::create([
@@ -47,11 +52,17 @@ class VendorController extends Controller
             'created_at' => Carbon::now(),
         ]);
 
-        Vendor::insert([
-            'user_id'        => $user_info->id,
-            'vendor_address' => $request->vendor_address,
-            'created_at'     => Carbon::now(),
-        ]);
+        $vendor = new Vendor();
+        $vendor->user_id = $user_info->id;
+        $vendor->vendor_address = $request->vendor_address;
+        if($request->inactive){
+            $vendor->status = "inactive";
+        }elseif($request->active){
+            $vendor->status = "active";
+        }
+
+        $vendor->save();
+
         // Mail::to($request->vendor_email)->send(new VendorNotification($random_password));
 
         return redirect()->route('vendor.index')->with('success', 'Vendor Created Successfully');
@@ -60,7 +71,51 @@ class VendorController extends Controller
     public function show($id)
     {
         $vendor = Vendor::findOrFail($id);
-        return view('vendor.show', compact('vendor'));
+        $user_id = $vendor->user_id;
+        $products = Product::where('user_id', $user_id)->latest()->paginate(10);
+        return view('vendor.show', compact('vendor', 'products'));
+    }
+
+    public function edit($id)
+    {
+        $vendor = Vendor::findOrFail($id);
+        return view('vendor.edit', compact('vendor'));
+    }
+
+    public function update(Request $request,$id)
+    {
+        $user_id = Vendor::findOrFail($id)->user_id;
+
+        // $random_password = Str::random(8);
+
+        $request->validate([
+            'vendor_name' => 'required',
+            'vendor_email' => 'required|email|unique:users,email,'.$user_id,
+            'vendor_phone_number' => 'required',
+            'vendor_address' => 'required',
+        ]);
+
+        $user_info = User::findOrFail($user_id)->update([
+            'name'       => $request->vendor_name,
+            'email'      => $request->vendor_email,
+            'phone'      => $request->vendor_phone_number,
+            'created_at' => Carbon::now(),
+        ]);
+
+        $vendor = Vendor::findOrFail($id);
+        $vendor->vendor_address = $request->vendor_address;
+        if($request->inactive){
+            $vendor->status = "inactive";
+        }elseif($request->active){
+            $vendor->status = "active";
+        }
+
+        $vendor->save();
+
+        // Mail::to($request->vendor_email)->send(new VendorNotification($random_password));
+
+        return redirect()->route('vendor.index')->with('success', 'Vendor Created Successfully');
+
     }
 
     public function destroy($id)
@@ -71,8 +126,8 @@ class VendorController extends Controller
             unlink(base_path('public/uploads/vendor_photos/' . $vendor->vendor_photo));
         }
         $vendor->delete();
-        Vendor::find($id)->delete();
-        return back()->with('delete', 'Vendor Deleted Successfully');
+        // Vendor::find($id)->delete();
+        return redirect()->back()->with('success', 'Vendor Deleted Successfully');
     }
 
     public function vendor_index()
@@ -88,5 +143,17 @@ class VendorController extends Controller
     //     $data = $view->render();
     //     return response()->json(['data'=>$data]);
     // }
+
+    public function makeInactive($id)
+    {
+       Vendor::findOrFail($id)->update(['status' => 'inactive']);
+       return redirect()->back()->with('success', 'Vendor Inactive Successfully');
+    }
+
+    public function makeActive($id)
+    {
+       Vendor::findOrFail($id)->update(['status' => 'active']);
+       return redirect()->back()->with('success', 'Vendor Active Successfully');
+    }
 }
 

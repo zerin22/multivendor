@@ -82,7 +82,9 @@ Route::group(['prefix' => 'admin', 'middleware'=> ['admin', 'auth'],], function(
     Route::resource('coupon', CouponController::class);
 
     Route::resource('vendor', VendorController::class);
-    // Route::post('vendor/list', [VendorController::class, 'showList'])->name('vendor.list');
+    Route::post('vendor/list', [VendorController::class, 'showList'])->name('vendor.list');
+    Route::get('vendor/inactive/{id}', [VendorController::class, 'makeInactive'])->name('vendor.inactive');
+    Route::get('vendor/active/{id}', [VendorController::class, 'makeActive'])->name('vendor.active');
 
     Route::get('/all/orders', [HomeController::class, 'allorders'])->name('all.orders');
 

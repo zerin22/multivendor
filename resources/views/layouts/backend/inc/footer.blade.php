@@ -1,3 +1,5 @@
+@stack('modal')
+
 <footer class="main-footer font-xs">
     <div class="row pb-30 pt-15">
         <div class="col-sm-6">
@@ -22,6 +24,7 @@
 <script src="{{ asset('backend') }}/assets/js/main.js?v=1.1" type="text/javascript"></script>
 <script src="{{ asset('backend') }}/assets/js/custom-chart.js" type="text/javascript"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+{{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script> --}}
 
     @if ($errors->any())
         @foreach ($errors->all() as $error)
@@ -42,5 +45,23 @@
         toastr.error("{!! Session::get('fail') !!}")
     </script>
     @endif
+
+    {{-- Bootstarp Form Validation --}}
+    {{-- <script>
+        (() => {
+        'use strict'
+        const forms = document.querySelectorAll('.needs-validation')
+        Array.from(forms).forEach(form => {
+            form.addEventListener('submit', event => {
+            if (!form.checkValidity()) {
+                event.preventDefault()
+                event.stopPropagation()
+            }
+
+            form.classList.add('was-validated')
+            }, false)
+        })
+        })()
+    </script> --}}
 
 @yield('script')

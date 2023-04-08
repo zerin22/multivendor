@@ -15,7 +15,27 @@
         <link rel="shortcut icon" type="image/x-icon" href="{{ asset('backend') }}/assets/imgs/theme/favicon.svg" />
         <!-- Template CSS -->
         <link href="{{ asset('backend') }}/assets/css/main.css?v=1.1" rel="stylesheet" type="text/css" />
+        {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css"> --}}
         <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+
+
+        <style>
+            .table-responsive {
+                min-height: 250px;
+            }
+
+            .inative__btn {
+                color: #920000;
+                background-color: #fdcccc;
+                border-color: #fbb3b3;
+            }
+            .inative__btn:hover {
+                color: #920000 !important;
+                background-color: #fdcccc;
+                border-color: #fbb3b3;
+            }
+        </style>
+
     </head>
 
     <body>

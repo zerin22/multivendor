@@ -9,6 +9,8 @@ class Vendor extends Model
 {
     use HasFactory;
 
+    protected $guarded = [];
+
     public function relationWithUser()
     {
         return $this->belongsTo(User::class, 'user_id','id');
