@@ -38,8 +38,8 @@ class HomeController extends Controller
 
     public function email_offer()
     {
-        $customers = User::where('role', 1)->get();
-        return view('offer.email_offer', compact('customers'));
+        $customers = User::where('role', 1)->paginate(10);
+        return view('email.email_offer', compact('customers'));
     }
 
     public function single_email_offer($id)

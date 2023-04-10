@@ -50,10 +50,10 @@
                 </div>
             </li>
 
-            <li class="menu-item @yield('user')">
+            <li class="menu-item @yield('email-offer')">
                 <a class="menu-link" href="{{ route('email_offer') }}">
                     <i class="icon icon material-icons md-person"></i>
-                    <span class="text">All User</span>
+                    <span class="text">Email Offer</span>
                 </a>
             </li>
 

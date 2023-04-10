@@ -1,14 +1,9 @@
 @extends('layouts.backend.backend_master')
-@section('title', 'Vendor Index')
-@section('vendor', 'active')
-@section('vendor.index', 'active')
-
+@section('title', 'User List')
+@section('user','active')
 @section('content')
     <div class="content-header">
-        <h2 class="content-title">Sellers list</h2>
-        <div>
-            <a href="{{ route('vendor.create') }}" class="btn btn-primary"><i class="material-icons md-plus"></i> Create new</a>
-        </div>
+        <h2 class="content-title">User List</h2>
     </div>
     <div class="card mb-4">
         <header class="card-header">
@@ -41,52 +36,41 @@
                     <thead>
                         <tr>
                             <th>Seller</th>
+                            <th>Name</th>
                             <th>Email</th>
-                            <th>Status</th>
                             <th>Registered</th>
                             <th class="text-end">Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse ($vendors as $vendor)
+                        @forelse ($customers as $customer)
                         <tr>
                             <td width="40%">
                                 <a href="#" class="itemside">
                                     <div class="left">
-                                        <img src="{{ asset('uploads/profile_photos') }}/{{ $vendor->relationWithUser->profile_photo }}" class="img-sm img-avatar" alt="Userpic" />
+                                        <img src="{{ asset('uploads/profile_photos') }}/{{ $customer->profile_photo }}" class="img-sm img-avatar" alt="Userpic" />
                                     </div>
                                     <div class="info pl-3">
-                                        <h6 class="mb-0 title">{{ $vendor->relationWithUser->name }}</h6>
+                                        <h6 class="mb-0 title">{{ $customer->name }}</h6>
                                     </div>
                                 </a>
                             </td>
-                            <td>{{ $vendor->relationWithUser->email }}</td>
-                            <td>
-                                @if ( $vendor->status == 'active')
-                                    <span class="badge rounded-pill alert-success">Active</span>
-                                @else
-                                    <span class="badge rounded-pill alert-danger">InActive</span>
-                                @endif
-                            </td>
-                            <td>{{ \Carbon\Carbon::parse($vendor->relationWithUser->created_at)->format('m F Y') }}</td>
+                            <td>{{ $customer->name }}</td>
+                            <td>{{ $customer->email }}</td>
+                            <td>{{ \Carbon\Carbon::parse($customer->created_at)->format('m F Y') }}</td>
                             <td class="text-end">
-                                @if ( $vendor->status == 'active')
-                                    <a href="{{ route('vendor.inactive', $vendor->id) }}" class="btn btn-light rounded font-sm inative__btn">InActive</a>
-                                @else
-                                    <a href="{{ route('vendor.active', $vendor->id) }}" class="btn btn-md rounded font-sm" >Active</a>
-                                @endif
                                 <div class="dropdown">
                                     <a href="#" data-bs-toggle="dropdown" class="btn btn-light rounded btn-sm font-sm"> <i class="material-icons md-more_horiz"></i> </a>
                                     <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="{{ route('vendor.show', $vendor->id) }}" >View detail</a>
-                                        <a class="dropdown-item" href="{{ route('vendor.edit', $vendor->id) }}">Edit info</a>
-                                        <a class="dropdown-item text-danger" data-bs-toggle="modal" data-bs-target="#exampleModal__{{ $vendor->id }}">Delete</a>
+                                        <a class="dropdown-item" href="" >View detail</a>
+                                        <a class="dropdown-item" href="">Edit info</a>
+                                        <a class="dropdown-item text-danger" data-bs-toggle="modal" data-bs-target="#exampleModal__{{ $customer->id }}">Delete</a>
                                     </div>
                                 </div>
                             </td>
 
                             @push('modal')
-                            <div class="modal fade" id="exampleModal__{{ $vendor->id }}" tabindex="-1" aria-labelledby="exampleModal__{{ $vendor->id }}" aria-hidden="true">
+                            <div class="modal fade" id="exampleModal__{{ $customer->id }}" tabindex="-1" aria-labelledby="exampleModal__{{ $customer->id }}" aria-hidden="true">
                                 <div class="modal-dialog">
                                   <div class="modal-content">
                                     <div class="modal-header">
@@ -101,7 +85,7 @@
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                        <form action="{{ route('vendor.destroy', $vendor->id) }}" method="POST" >
+                                        <form action="" method="POST" >
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger">Delete</button>
@@ -117,12 +101,14 @@
                     @endforelse
                     </tbody>
                 </table>
+                <!-- table-responsive.// -->
             </div>
         </div>
+        <!-- card-body end// -->
     </div>
 
     <div class="pagination-area mt-15 mb-50">
-        {{ $vendors->links('vendor.pagination.custom_pagination') }}
+        {{ $customers->links('vendor.pagination.custom_pagination') }}
     </div>
 @endsection
 
@@ -142,5 +128,6 @@
                 });
             });
         });
+
     </script>
 @endsection

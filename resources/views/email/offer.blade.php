@@ -8,7 +8,7 @@
         View Order
     @endcomponent
 
-    Thanks,<br>
-    {{ config('app.name') }}
+    Thanks
+
 
 @endcomponent

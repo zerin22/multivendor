@@ -126,7 +126,7 @@ class VendorController extends Controller
             unlink(base_path('public/uploads/vendor_photos/' . $vendor->vendor_photo));
         }
         $vendor->delete();
-        // Vendor::find($id)->delete();
+        Vendor::find($id)->delete();
         return redirect()->back()->with('success', 'Vendor Deleted Successfully');
     }
 
