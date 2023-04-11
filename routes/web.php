@@ -88,7 +88,9 @@ Route::group(['prefix' => 'admin', 'middleware'=> ['admin', 'auth'],], function(
 
     Route::get('/all/orders', [HomeController::class, 'allorders'])->name('all.orders');
 
-    Route::get('/email_offer', [HomeController::class, 'email_offer'])->name('email_offer');
+    Route::get('/email/offer', [HomeController::class, 'email_offer'])->name('email_offer');
+    Route::post('/email/offer', [HomeController::class, 'email_offer_loadmore'])->name('email_offer_loadmore');
+    // Route::get('/email_offer', [HomeController::class, 'loadMore_email_offer'])->name('email_offer_loadmore');
     Route::get('/single_email_offer/{id}', [HomeController::class, 'single_email_offer'])->name('single_email_offer');
     Route::post('/multi_email_offer', [HomeController::class, 'multi_email_offer'])->name('multi_email_offer');
 

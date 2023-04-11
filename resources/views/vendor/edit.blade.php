@@ -37,7 +37,6 @@
                     <div class="row gx-5">
                         <div class="col-lg-9">
                             <section class="content-body p-xl-4">
-
                                     <div class="row mb-4 ">
                                         <label class="col-lg-3 col-form-label">Vendor name*</label>
                                         <div class="col-lg-9 position-relative">
@@ -46,9 +45,7 @@
                                                 <p class="text-danger font-weight-bold">{{ $message }}</p>
                                             @enderror
                                         </div>
-
                                     </div>
-
                                     <div class="row mb-4">
                                         <label class="col-lg-3 col-form-label">Vendor Email*</label>
                                         <div class="col-lg-9">
@@ -58,7 +55,6 @@
                                             @enderror
                                         </div>
                                     </div>
-
                                     <div class="row mb-4">
                                         <label class="col-lg-3 col-form-label">Phone No</label>
                                         <div class="col-lg-4">
@@ -68,7 +64,6 @@
                                             @enderror
                                         </div>
                                     </div>
-
                                     <div class="row mb-4">
                                         <label class="col-lg-3 col-form-label">Vendor Address*</label>
                                         <div class="col-lg-9">
@@ -77,7 +72,6 @@
                                                 <p class="text-danger font-weight-bold">{{ $message }}</p>
                                             @enderror
                                         </div>
-
                                     </div>
                                     <br />
                                     {{-- <button class="btn btn-primary" type="submit">Continue to next</button> --}}
@@ -88,7 +82,6 @@
                     </div>
                     <!-- row.// -->
                 </div>
-               
             </div>
         </div>
     </form>
