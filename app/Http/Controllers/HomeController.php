@@ -15,6 +15,7 @@ use App\Exports\Order_summeriesExport;
 use App\Models\Cart;
 use App\Models\Rating;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Session;
 
 class HomeController extends Controller
 {
@@ -155,16 +156,29 @@ class HomeController extends Controller
 
     public function email_offer_loadmore(Request $request)
     {
-        // return $request;
-        if ($request->ajax()){
-            if($request->id){
-                $customers = User::where('role', 1)->latest()->limit(5)->get();
-            }else{
-                $customers = User::where('role', 1)->latest()->limit(5)->get();
-            }
+        // $dataId = $request->id;
+        // $customers = User::where('role', 1)->where('id', '<', $request->id)->orderBy('id', 'DESC')->limit(5)->get();
+        // $view = view('email.loadmore_email_offer', compact('customers'));
+        // $data = $view->render();
+
+        // return response()->json(['data'=>$data]);
+
+
+        if($request->id){
+            // return 1;
+            $customers = User::where('role', 1)->where('id', '<', $request->id)->orderBy('id', 'DESC')->limit(5)->get();
+            $view = view('email.loadmore_email_offer', compact('customers'));
+            $data = $view->render();
+
+            Session::forget('lastUserId');
+            return response()->json(['data'=>$data]);
+
+        }else{
+            // return 0;
+            $customers = User::where('role', 1)->latest()->limit(5)->get();
+            return view('email.loadmore_email_offer', compact('customers'));
         }
 
-        return view('email.loadmore_email_offer', compact('customers'));
-    }
 
+    }
 }
