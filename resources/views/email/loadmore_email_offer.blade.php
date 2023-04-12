@@ -1,4 +1,5 @@
 @foreach ($customers as $customer)
+@php($last_id = $customer->id)
 <tr>
     <td>
         <input type="checkbox" name="check[]" class="form-check-input"
@@ -14,7 +15,7 @@
     {{-- <td>{{ $last_id }}</td> --}}
 </tr>
 
-@php($last_id = $customer->id)
+
 @endforeach
 {{ Session::put('lastUserId', $last_id) }}
 

@@ -134,35 +134,10 @@ class HomeController extends Controller
         return Excel::download(new Order_summeriesExport, 'users.xlsx');
     }
 
-    public function loadMore_email_offer(Request $request)
-    {
-        // return $request->count;
-        // $customers = User::where('role', 1)->paginate(10);
-        $customers = User::where('role', 1)->skip($request->count)->take(5)->get();
 
-
-
-    	// if ($request->ajax()) {
-    		$view = view('email.loadmore_email_offer',compact('customers'));
-            $data = $view->render();
-            $count = $request->count + 5;
-            // $data_count = $customers->count();
-            return response()->json(['data'=>$view, 'count'=> $count]);
-            // return response()->json(['html'=>$view]);
-        // }
-
-    	// return view('email.email_offer', compact('customers'));
-    }
 
     public function email_offer_loadmore(Request $request)
     {
-        // $dataId = $request->id;
-        // $customers = User::where('role', 1)->where('id', '<', $request->id)->orderBy('id', 'DESC')->limit(5)->get();
-        // $view = view('email.loadmore_email_offer', compact('customers'));
-        // $data = $view->render();
-
-        // return response()->json(['data'=>$data]);
-
 
         if($request->id){
             // return 1;
@@ -178,7 +153,6 @@ class HomeController extends Controller
             $customers = User::where('role', 1)->latest()->limit(5)->get();
             return view('email.loadmore_email_offer', compact('customers'));
         }
-
 
     }
 }

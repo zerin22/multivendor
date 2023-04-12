@@ -77,10 +77,8 @@
                 },
                 success: function(data)
                 {
-                    // console.log('datata', data.data)
-
                     $('#table-data').append(data.data);
-                    $('.loadMoreButton'+id).remove();
+                    // $('.loadMoreButton'+id).remove();
                 }
             })
         });
