@@ -64,7 +64,6 @@ class BannerController extends Controller
         }
 
         $banner->update([
-            'status' => $request->status,
             'banner_heading' => $request->banner_heading,
             'banner_offer' => $request->banner_offer,
         ]);

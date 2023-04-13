@@ -17,7 +17,7 @@ class CategoryController extends Controller
 
     public function index()
     {
-        $categories = Category::all();
+        $categories = Category::latest()->paginate(10);
         return view('category.index', compact('categories'));
     }
 
@@ -47,21 +47,15 @@ class CategoryController extends Controller
         return redirect()->route('category.index')->with('success', 'Category Added Successfully');
     }
 
-    public function show($id)
-    {
-        $category = Category::find($id);
-        return view('category.show', compact('category'));
-    }
-
     public function edit($id)
     {
-        $category = Category::find($id);
+        $category = Category::findOrFail($id);
         return view('category.edit', compact('category'));
     }
 
     public function update(Request $request, $id)
     {
-        $category = Category::find($id);
+        $category = Category::findOrFail($id);
 
         if ($request->hasFile('new_category_photo')) {
             unlink(base_path('public/uploads/category_photos/' . $category->category_photo));
@@ -78,7 +72,6 @@ class CategoryController extends Controller
             'category_name'    => $request->category_name,
             'slug'             => $request->slug,
             'category_tagline' => $request->category_tagline,
-            'status'           => $request->status,
         ]);
         return redirect()->route('category.index')->with('success', 'Category Updated Successfully');
     }
@@ -89,5 +82,17 @@ class CategoryController extends Controller
         unlink(base_path('public/uploads/category_photos/' . $category->category_photo));
         $category->delete();
         return back()->with('delete', 'Category Deleted Successfully');
+    }
+
+    public function categoryInactive($id)
+    {
+        Category::findOrFail($id)->update(['status' => 'hide']);
+        return redirect()->back()->with('success', 'Category Inactive Successfully');
+    }
+
+    public function categoryActive($id)
+    {
+        Category::findOrFail($id)->update(['status' => 'show']);
+        return redirect()->back()->with('success', 'Vendor Active Successfully');
     }
 }

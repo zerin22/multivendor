@@ -78,6 +78,8 @@ Route::group(['prefix' => 'admin', 'middleware'=> ['admin', 'auth'],], function(
     Route::resource('banner', BannerController::class);
 
     Route::resource('category', CategoryController::class);
+    Route::get('category/inactive/{id}', [CategoryController::class, 'categoryInactive'])->name('category.inactive');
+    Route::get('category/active/{id}', [CategoryController::class, 'categoryActive'])->name('category.active');
 
     Route::resource('coupon', CouponController::class);
 

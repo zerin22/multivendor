@@ -5,7 +5,7 @@
 
 @section('content')
     <div class="content-header">
-        <h2 class="content-title">Sellers list</h2>
+        <h2 class="content-title">Banner List</h2>
         <div>
             <a href="{{ route('banner.create') }}" class="btn btn-primary"><i class="material-icons md-plus"></i> Add Banner</a>
         </div>

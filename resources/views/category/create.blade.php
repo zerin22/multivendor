@@ -4,52 +4,76 @@
 @section('category.add', 'active')
 
 @section('content')
-    <div class="mb-3">
-        <a href="{{ route('category.index') }}" class="btn btn-dark">Category List</a>
-    </div>
+
     <div class="row">
-        <div class="col-8">
-            <form method="POST" action="{{ route('category.store') }}" enctype="multipart/form-data">
-                @csrf
-                <div class="form-group">
-                    <label for="category_name">Category Name</label>
-                    <input type="text" id="title" class="form-control @error('category_name') is-invalid @enderror" id="category_name"
-                        name="category_name" value="{{ old('category_name') }}">
+        <div class="col-9 m-auto">
+            <div class="content-header">
+                <h2 class="content-title">Add New Category</h2>
+            </div>
+        </div>
+
+        <div class="col-9 m-auto">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row gx-5">
+                        <div class="col-lg-9">
+                            <section class="content-body p-xl-4">
+                                <form  method="POST" action="{{ route('category.store') }}" enctype="multipart/form-data"  novalidate>
+                                    @csrf
+                                    <div class="row mb-4 ">
+                                        <label class="col-lg-3 col-form-label">Category Name*</label>
+                                        <div class="col-lg-9 position-relative">
+                                            <input type="text" name="category_name" id="title" class="form-control @error('category_name') is-invalid @enderror" value="{{ old('category_name') }}" placeholder="Type here" />
+                                            @error('category_name')
+                                                <p class="text-danger font-weight-bold">{{ $message }}</p>
+                                            @enderror
+                                        </div>
+
+                                    </div>
+
+                                    <div class="row mb-4">
+                                        <label class="col-lg-3 col-form-label">Category slug*</label>
+                                        <div class="col-lg-9">
+                                            <input type="text" name="slug" id="slug" class="form-control @error('slug') is-invalid @enderror"
+                                            value="{{ old('slug') }}" placeholder="Type here" />
+                                            @error('slug')
+                                                <p class="text-danger font-weight-bold">{{ $message }}</p>
+                                            @enderror
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-4">
+                                        <label class="col-lg-3 col-form-label">Category Tagline*</label>
+                                        <div class="col-lg-9">
+                                            <input type="text" name="category_tagline" class="form-control @error('category_tagline') is-invalid @enderror" value="{{ old('category_tagline') }}" placeholder="Type here" />
+                                            @error('category_tagline')
+                                                <p class="text-danger font-weight-bold">{{ $message }}</p>
+                                            @enderror
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-4">
+                                        <label class="col-lg-3 col-form-label">Category Photo*</label>
+                                        <div class="col-lg-9">
+                                            <input type="file" name="category_photo" onchange="document.getElementById('img_id').src=window.URL.createObjectURL(this.files[0])" class="form-control" />
+                                            @error('category_photo')
+                                                <p class="text-danger font-weight-bold">{{ $message }}</p>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <img id="img_id" width="450px" height="250px" src="{{ asset('uploads') }}/banner_photos/default-image.jpg" alt="">
+                                    <br />
+                                    <br />
+                                    <button class="btn btn-primary" type="submit">Submit</button>
+                                </form>
+                            </section>
+                        </div>
+                    </div>
                 </div>
-                @error('category_name')
-                    <div class="text-danger">{{ $message }}</div>
-                @enderror
-                <div class="form-group">
-                    <label for="category_name">Category slug</label>
-                    <input type="text" id="slug" class="form-control @error('slug') is-invalid @enderror" id="slug"
-                        name="slug" value="{{ old('slug') }}">
-                </div>
-                @error('slug')
-                    <div class="text-danger">{{ $message }}</div>
-                @enderror
-                <div class="form-group">
-                    <label for="category_tagline">Category Tagline</label>
-                    <input type="text" class="form-control @error('category_tagline') is-invalid @enderror"
-                        id="category_tagline" name="category_tagline" value="{{ old('category_tagline') }}">
-                </div>
-                @error('category_tagline')
-                    <div class="text-danger">{{ $message }}</div>
-                @enderror
-                <div class="form-group">
-                    <label>Category Photo</label>
-                    <input type="file" class="form-control @error('category_photo') is-invalid @enderror"
-                        id="category_photo" name="category_photo" value="{{ old('category_photo') }}">
-                </div>
-                <div>
-                    <img width="200" id="output">
-                </div>
-                @error('category_photo')
-                    <div class="text-danger">{{ $message }}</div>
-                @enderror
-                <button type="submit" class="btn btn-primary">Submit</button>
-            </form>
+            </div>
         </div>
     </div>
+
 @endsection
 @section('script')
 

@@ -2,10 +2,14 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class CouponForm extends FormRequest
 {
+
+
+
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -23,9 +27,17 @@ class CouponForm extends FormRequest
      */
     public function rules()
     {
+        if(request()->routeIs('coupon.store'))
+        {
+            $nameValidation = 'unique:coupons';
+
+        }elseif(request()->routeIs('coupon.update'))
+        {
+            $nameValidation = 'required|unique:coupons,coupon_name,'.$this->coupon->id;
+        }
         return [
             '*'           => 'required',
-            'coupon_name' => 'required|unique:coupons',
+            'coupon_name' => $nameValidation,
             'discount'    => 'numeric|min:1|max:99',
             'validity'    => 'date|after:today',
             'limit'       => 'numeric|min:1'
@@ -35,7 +47,7 @@ class CouponForm extends FormRequest
     public function messages()
     {
         return [
-            'limit.numeric' => 'number dite hobe',
+            'limit.numeric' => 'Limit should be in number',
         ];
     }
 }

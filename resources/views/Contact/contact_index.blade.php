@@ -3,9 +3,21 @@
 @section('contact', 'active')
 
 @section('content')
-    <div class="row">
-        <div class="col-12">
-            <table class="table">
+
+<div class="content-header">
+    <h2 class="content-title">Message List</h2>
+</div>
+
+<div class="card">
+    <header class="card-header">
+        <div class="row gx-3">
+            <div class="col-lg-4 col-md-6 me-auto">
+                <input type="text"  placeholder="Search..." class="form-control table_search" />
+            </div>
+    </header>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-hover">
                 <thead>
                     <tr>
                         <th scope="col">#</th>
@@ -18,18 +30,45 @@
                 <tbody>
                     @forelse ($messages as $message)
                         <tr>
-                            <th scope="row">{{ $loop->index+1 }}</th>
+                            <td>{{ $loop->index+1 }}</td>
                             <td>{{ $message->name }}</td>
                             <td>{{ $message->email }}</td>
                             <td>{!! Str::limit($message->message, 20, '...') !!}</td>
                             <td>
-                                <a href="{{ route('contact.show', $message->id) }}" class="btn btn-info">Show</a>
-                                <a href="{{ route('contact.edit', $message->id) }}" class="btn btn-success">Edit</a>
-                                <form action="{{ route('contact.destroy', $message->id) }}" method="post">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button class="btn btn-danger">Delete</button>
-                                </form>
+                                <div class="dropdown">
+                                    <a href="#" data-bs-toggle="dropdown" class="btn btn-light rounded btn-sm font-sm"> <i class="material-icons md-more_horiz"></i> </a>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" href="{{ route('contact.show', $message->id) }}">Show info</a>
+                                        <a class="dropdown-item text-danger" data-bs-toggle="modal" data-bs-target="#exampleModal__{{ $message->id }}">Delete</a>
+                                    </div>
+                                </div>
+
+                                @push('modal')
+                                    <div class="modal fade" id="exampleModal__{{ $message->id }}" tabindex="-1" aria-labelledby="exampleModal__{{ $message->id }}" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body text-center" >
+                                                <span class=""><svg xmlns="http://www.w3.org/2000/svg" height="60" width="60" viewBox="0 0 24 24"><path fill="#f07f8f" d="M20.05713,22H3.94287A3.02288,3.02288,0,0,1,1.3252,17.46631L9.38232,3.51123a3.02272,3.02272,0,0,1,5.23536,0L22.6748,17.46631A3.02288,3.02288,0,0,1,20.05713,22Z"/><circle cx="12" cy="17" r="1" fill="#e62a45"/><path fill="#e62a45" d="M12,14a1,1,0,0,1-1-1V9a1,1,0,0,1,2,0v4A1,1,0,0,1,12,14Z"/></svg></span>
+                                                <h4 class="h4 mb-0 mt-3" style="color: red">Warning</h4>
+                                                <p class="card-text">Are you sure you want to delete data?</p>
+                                                <strong class="card-text" style="color: red">Once deleted, you will not be able to recover this data!</strong>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                <form action="{{ route('contact.destroy', $message->id) }}" method="POST" >
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger">Delete</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                @endpush
                             </td>
                         </tr>
                     @empty
@@ -39,4 +78,9 @@
             </table>
         </div>
     </div>
+</div>
+<div class="pagination-area mt-15 mb-50">
+    {{ $messages->links('vendor.pagination.custom_pagination') }}
+</div>
+
 @endsection

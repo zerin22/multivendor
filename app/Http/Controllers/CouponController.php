@@ -16,7 +16,7 @@ class CouponController extends Controller
 
     public function index()
     {
-        $coupons = Coupon::latest()->get();
+        $coupons = Coupon::latest()->paginate(10);
         return view('coupon.index', compact('coupons'));
     }
 
@@ -31,7 +31,28 @@ class CouponController extends Controller
         Coupon::insert($request->except('_token') + [
             'created_at' => Carbon::now(),
         ]);
-        return back();
+        return redirect()->back()->with('success', 'Coupon added successfully');
     }
 
+    public function edit($id)
+    {
+        $coupon = Coupon::findOrFail($id);
+        return view('coupon.edit', compact('coupon'));
+    }
+
+    public function update(CouponForm $request, Coupon $coupon)
+    {
+        $coupon->coupon_name = $request->coupon_name;
+        $coupon->discount = $request->discount;
+        $coupon->validity = $request->validity;
+        $coupon->limit = $request->limit;
+        $coupon->save();
+        return redirect()->route('coupon.index')->with('success', 'Coupon updated successfully');
+    }
+
+    public function destroy(Coupon $coupon)
+    {
+        $coupon->delete();
+        return redirect()->back()->with('success', 'Coupon deleted successfully');
+    }
 }

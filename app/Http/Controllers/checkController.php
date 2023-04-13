@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Contact;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 
-class ContactController extends Controller
+class checkController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +13,7 @@ class ContactController extends Controller
      */
     public function index()
     {
-        $messages = Contact::latest()->get();
-        return view('Contact.contact_index', compact('messages'));
+        //
     }
 
     /**
@@ -48,8 +45,7 @@ class ContactController extends Controller
      */
     public function show($id)
     {
-        $contact = Contact::findOrFail($id);
-        return view('Contact.contact_show', compact('contact'));
+        //
     }
 
     /**
@@ -83,22 +79,6 @@ class ContactController extends Controller
      */
     public function destroy($id)
     {
-        Contact::findOrFail($id)->delete();
-        return redirect()->back()->with('success', 'Comment deleted successfully');
+        //
     }
-
-    public function contactmessage(Request $request)
-    {
-        $request->validate([
-            '*' => 'required',
-        ]);
-        Contact::insert([
-            'name'       => $request->name,
-            'email'      => $request->email,
-            'message'    => $request->message,
-            'created_at' => Carbon::now(),
-        ]);
-        return redirect()->back()->with('success', 'Message Post Successfully');
-    }
-
 }

@@ -8,7 +8,7 @@
         <form  method="POST" action="{{ route('vendor.update', $vendor->id) }}" enctype="multipart/form-data"  novalidate>
         @csrf
         @method('PUT')
-        <div class="col-9">
+        <div class="col-9 m-auto">
             <div class="content-header">
                 <h2 class="content-title">Update Vendor</h2>
 
@@ -31,7 +31,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-9">
+        <div class="col-9 m-auto">
             <div class="card">
                 <div class="card-body">
                     <div class="row gx-5">

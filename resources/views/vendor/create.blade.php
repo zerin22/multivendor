@@ -4,38 +4,11 @@
 @section('vendor.create', 'active')
 
 @section('content')
-    {{-- <div class="mb-3">
-        <a href="{{ route('vendor.index') }}" class="btn btn-dark">Vendor List</a>
-    </div>
-    <div class="row">
-        <div class="col-8">
-            <form method="POST" action="{{ route('vendor.store') }}" enctype="multipart/form-data">
-                @csrf
-                <div class="form-group">
-                    <label for="vendor_name">Vendor Name</label>
-                    <input type="text" class="form-control" id="vendor_name" name="vendor_name">
-                </div>
-                <div class="form-group">
-                    <label for="vendor_email">Vendor Email</label>
-                    <input type="email" class="form-control" id="vendor_email" name="vendor_email">
-                </div>
-                <div class="form-group">
-                    <label for="vendor_phone_number">Vendor Phone</label>
-                    <input type="text" class="form-control" id="vendor_phone_number" name="vendor_phone_number">
-                </div>
-                <div class="form-group">
-                    <label for="vendor_address">Vendor Address</label>
-                    <input type="text" class="form-control" id="vendor_address" name="vendor_address">
-                </div>
-                <button type="submit" class="btn btn-primary">Add Vendor</button>
-            </form>
-        </div>
-    </div> --}}
 
     <div class="row">
         <form  method="POST" action="{{ route('vendor.store') }}" enctype="multipart/form-data"  novalidate>
             @csrf
-        <div class="col-9">
+        <div class="col-9 m-auto">
             <div class="content-header">
                 <h2 class="content-title">Add New Vendor</h2>
 
@@ -45,7 +18,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-9">
+        <div class="col-9 m-auto">
             <div class="card">
                 <div class="card-body">
                     <div class="row gx-5">
