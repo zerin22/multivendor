@@ -15,7 +15,7 @@ class ContactController extends Controller
      */
     public function index()
     {
-        $messages = Contact::latest()->get();
+        $messages = Contact::latest()->paginate(10);
         return view('Contact.contact_index', compact('messages'));
     }
 
@@ -84,7 +84,7 @@ class ContactController extends Controller
     public function destroy($id)
     {
         Contact::findOrFail($id)->delete();
-        return redirect()->back()->with('success', 'Comment deleted successfully');
+        return redirect()->route('contact.index')->with('success', 'Comment deleted successfully');
     }
 
     public function contactmessage(Request $request)

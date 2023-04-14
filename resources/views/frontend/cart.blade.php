@@ -176,7 +176,7 @@
                                         <div class="alert alert-danger">Please remove stock out products</div>
                                     @else
                                         <input type="submit" value="Proceed to Checkout" class="btn btn-info d-none"
-                                            id="checkput_btn"></input>
+                                            id="checkput_btn">
                                     @endif
                                 </div>
                             </form>

@@ -34,8 +34,7 @@
                             <td>
                                 @if ($order_summery->payment_status == 1 && $order_summery->delivered_status == 0)
                                     <a id="receivedpayment" href="{{ route('mark.received', $order_summery->id) }}"
-                                        class="btn btn-info">Mark
-                                        Received</a>
+                                        class="btn btn-info">Mark Received</a>
                                 @endif
                             </td>
                         </tr>

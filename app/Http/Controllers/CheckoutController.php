@@ -11,6 +11,7 @@ use App\Models\Order_summery;
 use App\Models\Product;
 use App\Models\Cart;
 use App\Models\Coupon;
+use App\Models\State;
 use Carbon\Carbon;
 use phpDocumentor\Reflection\Types\Nullable;
 use Illuminate\Support\Facades\Session;
@@ -20,6 +21,8 @@ class CheckoutController extends Controller
     public function checkout(Request $request)
     {
         Session::put('s_shipping_total', $request->shipping);
+
+        // return $countries = Country::where('status', 'active')->get(['id', 'name']);
 
         if (strpos(url()->previous(), 'cart') || strpos(url()->previous(), 'checkout')) {
             return view('frontend.checkout', [
@@ -32,13 +35,22 @@ class CheckoutController extends Controller
 
     public function checkout_post(Request $request)
     {
-        return $request->all();
+        // return $request;
+        // return $request->all();
         $request->validate([
-            'order_notes' => 'nullable',
-            '*' => 'required',
+            'order_summery_id' => 'required',
+            'name' => 'required',
+            'email' => 'required',
+            'phone' => 'required',
+            'country_id' => 'required',
+            'state_id' => 'required',
+            'city_id' => 'required',
+            'address' => 'required',
+            'postcode' => 'required',
+            'order_notes' => 'required'
         ]);
 
-        $order_summery_id = Order_summery::insertGetId([
+       $order_summery_id = Order_summery::insertGetId([
             'user_id' => auth()->id(),
             'cart_total' => session('s_cart_total'),
             'discount_total' => session('s_discount_total'),
@@ -56,6 +68,7 @@ class CheckoutController extends Controller
             'email' => $request->email,
             'phone' => $request->phone,
             'country_id' => $request->country,
+            'state_id' => $request->state,
             'city_id' => $request->city,
             'address' => $request->address,
             'postcode' => $request->postcode,
@@ -70,6 +83,7 @@ class CheckoutController extends Controller
                 'amount' => $cart->amount,
                 'created_at' => Carbon::now()
             ]);
+
             Product::find($cart->product_id)->decrement('product_quantity', $cart->amount);
         }
 
@@ -78,17 +92,28 @@ class CheckoutController extends Controller
         }
 
         if ($request->payment_option == 0) {
-            return redirect('home')->with('success', 'Purchase Successfull');
+            return redirect('/')->with('success', 'Purchase Successfull');
         } else {
             Session::put('s_order_summery_id', $order_summery_id);
             return redirect('/pay');
         }
     }
 
+    public function get_states(Request $request)
+    {
+        $show_state = "<option value=''>Select State</option>";
+        $states = State::where('country_id', $request->country_id)->where('status', 'active')->get(['id', 'name']);
+        foreach ($states as $state) {
+            // echo $city->name .= "<option value='$city->id'>$city->name</option>";
+            $show_state .= "<option value='$state->id'>$state->name</option>";
+        }
+        return $show_state;
+    }
+
     public function get_cities(Request $request)
     {
         $show_city = "<option value=''>Select City</option>";
-        $cities = City::where('state_id', $request->country_id)->where('status', 'active')->get(['id', 'name']);
+        $cities = City::where('state_id', $request->state_id)->where('status', 'active')->get(['id', 'name']);
         foreach ($cities as $city) {
             // echo $city->name .= "<option value='$city->id'>$city->name</option>";
             $show_city .= "<option value='$city->id'>$city->name</option>";

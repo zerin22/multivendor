@@ -71,9 +71,17 @@
                                     </div>
                                     <div class="col-lg-12">
                                         <div class="mb-4 billing-select">
+                                            <label>State</label>
+                                            <select name="state" id="state_dropdown">
+                                                <option value="">Select State First</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="mb-4 billing-select">
                                             <label>City</label>
                                             <select name="city" id="city_dropdown">
-                                                <option value="">Select Country First</option>
+                                                <option value="">Select City First</option>
                                             </select>
                                         </div>
                                     </div>
@@ -184,16 +192,32 @@
             $('#country_dropdown').select2();
             $('#country_dropdown').change(function() {
                 var country_id = $(this).val();
-                $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    }
-                });
+                console.log(country_id);
+
                 $.ajax({
                     type: 'POST',
-                    url: '/get/cities',
+                    url: '{{ route('get_states') }}',
                     data: {
                         country_id: country_id
+                    },
+                    success: function(data) {
+                        console.log('data',data)
+                        $('#state_dropdown').html(data)
+                    }
+                })
+            });
+        });
+
+        $(document).ready(function() {
+            $('#state_dropdown').select2();
+            $('#state_dropdown').change(function() {
+                var state_id = $(this).val();
+
+                $.ajax({
+                    type: 'POST',
+                    url: '{{ route('get_cities') }}',
+                    data: {
+                        state_id: state_id
                     },
                     success: function(data) {
                         console.log('data',data)
