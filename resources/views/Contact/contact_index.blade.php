@@ -38,7 +38,7 @@
                                 <div class="dropdown">
                                     <a href="#" data-bs-toggle="dropdown" class="btn btn-light rounded btn-sm font-sm"> <i class="material-icons md-more_horiz"></i> </a>
                                     <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="{{ route('contact.show', $message->id) }}">Show info</a>
+                                        <a class="dropdown-item" href="{{ route('contact.show', $message->id) }}">Detail</a>
                                         <a class="dropdown-item text-danger" data-bs-toggle="modal" data-bs-target="#exampleModal__{{ $message->id }}">Delete</a>
                                     </div>
                                 </div>

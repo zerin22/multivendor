@@ -123,7 +123,8 @@ Route::group(['prefix' => 'user', 'middleware'=> ['user', 'auth'],], function() 
     Route::post('/cart/update/', [CartController::class, 'cartupdate'])->name('cartupdate');
     Route::get('/cart/remove/{cart_id}', [CartController::class, 'remove'])->name('cart.remove');
 
-    Route::post('/checkout', [CheckoutController::class, 'checkout'])->name('checkout');
+    Route::match(['get', 'post'], '/checkout',[CheckoutController::class, 'checkout'])->name('checkout');
+    // Route::post('/checkout', [CheckoutController::class, 'checkout'])->name('checkout');
     Route::post('/checkout/post', [CheckoutController::class, 'checkout_post'])->name('checkout_post');
     Route::post('/get/states', [CheckoutController::class, 'get_states'])->name('get_states');
     Route::post('/get/cities', [CheckoutController::class, 'get_cities'])->name('get_cities')->middleware("cors");

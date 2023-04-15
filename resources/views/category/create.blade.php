@@ -53,7 +53,7 @@
                                     </div>
 
                                     <div class="row mb-4">
-                                        <label class="col-lg-3 col-form-label">Category Photo*</label>
+                                        <label class="col-lg-3 col-form-label">Category Photo(600px X 330px)*</label>
                                         <div class="col-lg-9">
                                             <input type="file" name="category_photo" onchange="document.getElementById('img_id').src=window.URL.createObjectURL(this.files[0])" class="form-control" />
                                             @error('category_photo')

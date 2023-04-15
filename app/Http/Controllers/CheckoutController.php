@@ -35,20 +35,18 @@ class CheckoutController extends Controller
 
     public function checkout_post(Request $request)
     {
-        // return $request;
-        // return $request->all();
         $request->validate([
-            'order_summery_id' => 'required',
             'name' => 'required',
             'email' => 'required',
             'phone' => 'required',
-            'country_id' => 'required',
-            'state_id' => 'required',
-            'city_id' => 'required',
+            'country' => 'required',
+            'state' => 'required',
+            'city' => 'required',
             'address' => 'required',
             'postcode' => 'required',
-            'order_notes' => 'required'
         ]);
+
+        // return $request->message;
 
        $order_summery_id = Order_summery::insertGetId([
             'user_id' => auth()->id(),
@@ -62,6 +60,7 @@ class CheckoutController extends Controller
             'created_at' => Carbon::now()
         ]);
 
+
         Billing_details::insert([
             'order_summery_id' => $order_summery_id,
             'name' => $request->name,
@@ -72,7 +71,7 @@ class CheckoutController extends Controller
             'city_id' => $request->city,
             'address' => $request->address,
             'postcode' => $request->postcode,
-            'order_notes' => $request->message,
+            'order_notes' => $request->message
         ]);
 
         foreach (allcarts() as $cart) {
@@ -91,8 +90,11 @@ class CheckoutController extends Controller
             Coupon::where('coupon_name', session('s_coupon_name'))->decrement('limit', 1);
         }
 
-        if ($request->payment_option == 0) {
+        if ($request->payment_option == 0)
+        {
+            Cart::where('user_id', Auth()->id())->delete();
             return redirect('/')->with('success', 'Purchase Successfull');
+
         } else {
             Session::put('s_order_summery_id', $order_summery_id);
             return redirect('/pay');

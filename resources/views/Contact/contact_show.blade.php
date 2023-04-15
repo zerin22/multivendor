@@ -34,7 +34,7 @@
                                     <div class="row mb-4 ">
                                         <label class="col-lg-3 col-form-label">Message</label>
                                         <div class="col-lg-9 position-relative">
-                                            <input type="text" name="message" class="form-control" value="{{ $contact->message }}" readonly />
+                                            <textarea type="text" name="message" class="form-control"cols="30" rows="10">{{ $contact->message }}</textarea>
                                         </div>
                                     </div>
                                     <br />

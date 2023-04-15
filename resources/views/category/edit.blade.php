@@ -29,7 +29,6 @@
                                             <p class="text-danger font-weight-bold">{{ $message }}</p>
                                         @enderror
                                     </div>
-
                                 </div>
 
                                 <div class="row mb-4">
@@ -54,7 +53,7 @@
                                 </div>
 
                                 <div class="row mb-4">
-                                    <label class="col-lg-3 col-form-label">Category Photo*</label>
+                                    <label class="col-lg-3 col-form-label">Category Photo(600px X 330px)*</label>
                                     <div class="col-lg-9">
                                         <input type="file" name="new_category_photo" onchange="document.getElementById('img_id').src=window.URL.createObjectURL(this.files[0])" class="form-control" />
                                         @error('new_category_photo')
