@@ -17,6 +17,7 @@ class CreateOrdersTable extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('order_details_id');
+            $table->unsignedBigInteger('order_summery_id');
             $table->string('name');
             $table->string('email');
             $table->string('phone');
@@ -27,6 +28,7 @@ class CreateOrdersTable extends Migration
             $table->string('state');
             $table->string('country');
             $table->string('postcode');
+            $table->string('message');
             $table->string('transaction_id');
             $table->string('currency');
             $table->timestamps();

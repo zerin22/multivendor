@@ -1,11 +1,6 @@
-@extends('layouts.app')
-@section('breadcrumb')
-    <h4 class="page-title">Order Details </h4>
-    <ol class="breadcrumb float-sm-left">
-        <li class="breadcrumb-item">Home</li>
-        <li class="breadcrumb-item">Order Details</li>
-    </ol>
-@endsection
+@extends('layouts.backend.backend_master')
+@section('title', 'Order Details')
+@section('order', 'active')
 
 @section('content')
     <div class="mb-3">
@@ -76,7 +71,7 @@
                             <tbody>
                                 <tr>
                                     <th>Vendor Name</th>
-                                    <td>{{ $order_detail->relationwithvendor->name }}</td>
+                                    <td>{{ $order_detail->relationwithvendor->name ?? ''}}</td>
                                 </tr>
                                 <tr>
                                     <th>Product Name</th>
@@ -100,7 +95,7 @@
                             </tbody>
 
                         </table>
-                        @if ($order_summeries->delivered_status == 1)
+                        @if ($order_summeries->delivered_status == 0)
                             <form action="{{ route('review.rating', $order_detail->id) }}" method="post">
                                 @csrf
                                 <div class="form-group">

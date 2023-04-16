@@ -82,7 +82,7 @@ class HomeController extends Controller
     public function allorders(Request $request)
     {
         return view('all_orders.index', [
-            'order_summeries' => Order_summery::all(),
+            'order_summeries' => Order_summery::latest()->paginate(10),
         ]);
     }
 

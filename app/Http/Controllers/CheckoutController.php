@@ -11,6 +11,7 @@ use App\Models\Order_summery;
 use App\Models\Product;
 use App\Models\Cart;
 use App\Models\Coupon;
+use App\Models\Order;
 use App\Models\State;
 use Carbon\Carbon;
 use phpDocumentor\Reflection\Types\Nullable;
@@ -46,8 +47,6 @@ class CheckoutController extends Controller
             'postcode' => 'required',
         ]);
 
-        // return $request->message;
-
        $order_summery_id = Order_summery::insertGetId([
             'user_id' => auth()->id(),
             'cart_total' => session('s_cart_total'),
@@ -61,21 +60,21 @@ class CheckoutController extends Controller
         ]);
 
 
-        Billing_details::insert([
-            'order_summery_id' => $order_summery_id,
-            'name' => $request->name,
-            'email' => $request->email,
-            'phone' => $request->phone,
-            'country_id' => $request->country,
-            'state_id' => $request->state,
-            'city_id' => $request->city,
-            'address' => $request->address,
-            'postcode' => $request->postcode,
-            'order_notes' => $request->message
-        ]);
+        // Billing_details::insert([
+        //     'order_summery_id' => $order_summery_id,
+        //     'name' => $request->name,
+        //     'email' => $request->email,
+        //     'phone' => $request->phone,
+        //     'country_id' => $request->country,
+        //     'state_id' => $request->state,
+        //     'city_id' => $request->city,
+        //     'address' => $request->address,
+        //     'postcode' => $request->postcode,
+        //     'order_notes' => $request->message
+        // ]);
 
         foreach (allcarts() as $cart) {
-            Order_detail::insert([
+            Order_detail::insertGetId([
                 'order_summery_id' => $order_summery_id,
                 'vendor_id' => $cart->vendor_id,
                 'product_id' => $cart->product_id,
@@ -86,6 +85,23 @@ class CheckoutController extends Controller
             Product::find($cart->product_id)->decrement('product_quantity', $cart->amount);
         }
 
+
+
+        $order = new Order();
+        $order->order_summery_id = $order_summery_id;
+        // $order->order_details_id = $order_details_id;
+        $order->user_id = auth()->id();
+        $order->name = $request->name;
+        $order->email = $request->email;
+        $order->phone = $request->phone;
+        $order->country_id = $request->country;
+        $order->state_id = $request->state;
+        $order->city_id = $request->city;
+        $order->address = $request->address;
+        $order->postcode = $request->postcode;
+        $order->message = $request->message;
+        $order->save();
+
         if (session('s_coupon_name')) {
             Coupon::where('coupon_name', session('s_coupon_name'))->decrement('limit', 1);
         }
@@ -95,7 +111,7 @@ class CheckoutController extends Controller
             Cart::where('user_id', Auth()->id())->delete();
             return redirect('/')->with('success', 'Purchase Successfull');
 
-        } else {
+        }else {
             Session::put('s_order_summery_id', $order_summery_id);
             return redirect('/pay');
         }

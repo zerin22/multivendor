@@ -1,48 +1,87 @@
 @extends('layouts.backend.backend_master')
 @section('title', 'Order List')
-@section('coupon.add', 'active')
+@section('order', 'active')
 
 @section('content')
-    {{-- <a href="" class="mb-3 btn btn-dark">Add Vendor</a> --}}
-    <div class="row">
-        <div class="col-12">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th scope="col">Order ID</th>
-                        <th scope="col">Grand Total</th>
-                        <th scope="col">Payment Option</th>
-                        <th scope="col">Payment Status</th>
-                        <th scope="col">Received Status</th>
-                        <th scope="col">Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @forelse ($order_summeries as $order_summery)
+    <div class="content-header">
+        <h2 class="content-title">Order List</h2>
+    </div>
+
+    <div class="card">
+        <header class="card-header">
+            <div class="row gx-3">
+                <div class="col-lg-4 col-md-6 me-auto">
+                    <input type="text"  placeholder="Search..." class="form-control table_search" />
+                </div>
+        </header>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
                         <tr>
-                            <th scope="row">{{ $order_summery->id }}</th>
-                            <td>{{ $order_summery->grand_total }}</td>
-                            <td>{{ $order_summery->payment_option == 0 ? 'COD' : 'Online' }}</td>
-                            <td>{{ $order_summery->payment_status == 0 ? 'Not Paid' : 'Paid' }}</td>
-                            <td>
-                                @if ($order_summery->delivered_status == 0)
-                                    Pending
-                                @else
-                                    Delivered
-                                @endif
-                            </td>
-                            <td>
-                                @if ($order_summery->payment_status == 1 && $order_summery->delivered_status == 0)
-                                    <a id="receivedpayment" href="{{ route('mark.received', $order_summery->id) }}"
-                                        class="btn btn-info">Mark Received</a>
-                                @endif
-                            </td>
+                            <th scope="col">Order ID</th>
+                            <th scope="col">Grand Total</th>
+                            <th scope="col">Payment Option</th>
+                            <th scope="col">Payment Status</th>
+                            <th scope="col">Received Status</th>
+                            <th scope="col">Action</th>
                         </tr>
-                    @empty
-                        <div class="alert alert-dark">No Record</div>
-                    @endforelse
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        @forelse ($order_summeries as $order_summery)
+                            <tr>
+                                <td>{{ $loop->index+1 }}</td>
+                                <td>{{ $order_summery->grand_total }}</td>
+                                <td>{{ $order_summery->payment_option == 0 ? 'COD' : 'Online' }}</td>
+                                <td>{{ $order_summery->payment_status == 0 ? 'Not Paid' : 'Paid' }}</td>
+                                <td>
+                                    @if ( $order_summery->delivered_status == 1)
+                                        <span class="badge rounded-pill alert-danger">Pending</span>
+                                    @else
+                                    <span class="badge rounded-pill alert-success">Delivered</span>
+                                    @endif
+                                </td>
+                                <td>
+                                    <div class="dropdown">
+                                        <a href="#" data-bs-toggle="dropdown" class="btn btn-light rounded btn-sm font-sm"> <i class="material-icons md-more_horiz"></i> </a>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item" href="">Detail</a>
+                                            {{-- <a class="dropdown-item" href="{{ route('my_order_details', Crypt::encryptString($order_summery->id)) }}">Detail</a> --}}
+                                            <a class="dropdown-item" href="{{ route('invoice.download') }}">PDF Download</a>
+                                            <a class="dropdown-item" href="{{ route('invoice.download.excel') }}">Excel Download</a>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        @empty
+                            <div class="alert alert-dark">No Record</div>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
+    <div class="pagination-area mt-15 mb-50">
+        {{ $order_summeries->links('vendor.pagination.custom_pagination') }}
+    </div>
+@endsection
+
+
+@section('script')
+    <script>
+        $(document).ready(function () {
+            // Table Search
+            $('.table_search').on('input', function(){
+                var tableSearchValue = $(this).val();
+                $(this).closest(".card").find(".table tbody tr").each(function(){
+                    if($(this).text().search(new RegExp(tableSearchValue, "i")) < 0){
+                        $(this).hide();
+                    }
+                    else{
+                        $(this).show();
+                    }
+                });
+            });
+        });
+    </script>
 @endsection

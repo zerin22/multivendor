@@ -17,7 +17,8 @@ use App\Http\Controllers\{
     CheckoutController,
     SizeController,
     ContactController,
-    UserController
+    UserController,
+    VendorOrderController
 };
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\SslCommerzPaymentController;
@@ -106,6 +107,9 @@ Route::group(['prefix' => 'vendor', 'middleware'=> ['vendor', 'auth'],], functio
     Route::delete('product_thumb/destroy/{id}', [ProductController::class, 'product_destroy_thumb'])->name('product_thumb.delete');
 
     Route::resource('size', SizeController::class);
+    Route::resource('vendor-order', VendorOrderController::class);
+
+
 });
 
 Route::group(['prefix' => 'user', 'middleware'=> ['user', 'auth'],], function() {
@@ -135,4 +139,5 @@ Route::group(['prefix' => 'user', 'middleware'=> ['user', 'auth'],], function() 
     Route::get('/invoice/download', [HomeController::class, 'invoicedownload'])->name('invoice.download');
     Route::get('/invoice/download/excel', [HomeController::class, 'invoicedownloadexcel'])->name('invoice.download.excel');
 
+    
 });
