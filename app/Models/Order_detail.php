@@ -18,4 +18,9 @@ class Order_detail extends Model
     {
         return $this->belongsTo(Product::class, 'product_id', 'id');
     }
+
+    public function relationWithOrderSummery()
+    {
+        return $this->belongsTo(Order_summery::class, 'order_summery_id', 'id');
+    }
 }

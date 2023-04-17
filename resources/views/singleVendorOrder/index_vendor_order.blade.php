@@ -1,6 +1,6 @@
 @extends('layouts.backend.backend_master')
 @section('title', 'Order List')
-@section('order', 'active')
+@section('myOrder', 'active')
 
 @section('content')
     <div class="content-header">
@@ -21,26 +21,26 @@
                         <tr>
                             <th scope="col">Order ID</th>
                             <th scope="col">Grand Total</th>
-                            <th scope="col">Payment Option</th>
+                            {{-- <th scope="col">Payment Option</th>
                             <th scope="col">Payment Status</th>
-                            <th scope="col">Received Status</th>
+                            <th scope="col">Received Status</th> --}}
                             <th scope="col">Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse ($order_summeries as $order_summery)
+                        @forelse ($all_orders as $all_order)
                             <tr>
                                 <td>{{ $loop->index+1 }}</td>
-                                <td>{{ $order_summery->grand_total }}</td>
-                                <td>{{ $order_summery->payment_option == 0 ? 'COD' : 'Online' }}</td>
-                                <td>{{ $order_summery->payment_status == 0 ? 'Not Paid' : 'Paid' }}</td>
-                                <td>
+                                <td>{{  $all_order->vendor_id }}</td>
+                                {{-- <td>{{ $order_summery->payment_option == 0 ? 'COD' : 'Online' }}</td>
+                                <td>{{ $order_summery->payment_status == 0 ? 'Not Paid' : 'Paid' }}</td> --}}
+                                {{-- <td>
                                     @if ( $order_summery->delivered_status == 0)
                                         <span class="badge rounded-pill alert-danger">Pending</span>
                                     @else
-                                    <span class="badge rounded-pill alert-success">Delivered</span>
+                                        <span class="badge rounded-pill alert-success">Delivered</span>
                                     @endif
-                                </td>
+                                </td> --}}
                                 <td>
                                     <div class="dropdown">
                                         <a href="#" data-bs-toggle="dropdown" class="btn btn-light rounded btn-sm font-sm"> <i class="material-icons md-more_horiz"></i> </a>
@@ -61,9 +61,9 @@
             </div>
         </div>
     </div>
-    <div class="pagination-area mt-15 mb-50">
+    {{-- <div class="pagination-area mt-15 mb-50">
         {{ $order_summeries->links('vendor.pagination.custom_pagination') }}
-    </div>
+    </div> --}}
 @endsection
 
 

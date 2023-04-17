@@ -25,7 +25,7 @@
                     <i class="icon material-icons md-home"></i>
                     <span class="text">Dashboard</span>
                 </a>
-            @elseif (Auth::user()->role ==3)
+            @elseif (Auth::user()->role == 3)
                 <a class="menu-link" href="{{ route('vendor.dashboard') }}">
                     <i class="icon material-icons md-home"></i>
                     <span class="text">Dashboard</span>
@@ -126,6 +126,14 @@
                     <a href="{{ route('size.create') }}" class="@yield('size.add')">Add Size</a>
                 </div>
             </li>
+
+            <li class="menu-item @yield('vendorOrder')">
+                <a class="menu-link" href="{{ route('singleVendorOrder.index') }}">
+                    <i class="icon icon material-icons md-shopping_cart"></i>
+                    <span class="text">All Order</span>
+                </a>
+            </li>
+
         @else
             <li class="menu-item @yield('myOrder')">
                 <a class="menu-link" href="{{ route('my_order.index') }}">

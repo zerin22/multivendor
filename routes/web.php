@@ -91,6 +91,8 @@ Route::group(['prefix' => 'admin', 'middleware'=> ['admin', 'auth'],], function(
 
     Route::get('/all/orders', [HomeController::class, 'allorders'])->name('all.orders');
 
+
+
     Route::get('/email-offer', [HomeController::class, 'email_offer'])->name('email_offer');
     Route::post('/email/offer/loadmore', [HomeController::class, 'email_offer_loadmore'])->name('email.offer.loadmore');
     // Route::get('/email_offer', [HomeController::class, 'loadMore_email_offer'])->name('email_offer_loadmore');
@@ -107,7 +109,8 @@ Route::group(['prefix' => 'vendor', 'middleware'=> ['vendor', 'auth'],], functio
     Route::delete('product_thumb/destroy/{id}', [ProductController::class, 'product_destroy_thumb'])->name('product_thumb.delete');
 
     Route::resource('size', SizeController::class);
-    Route::resource('vendor-order', VendorOrderController::class);
+
+    Route::resource('singleVendorOrder', VendorOrderController::class);
 
 
 });
@@ -133,11 +136,13 @@ Route::group(['prefix' => 'user', 'middleware'=> ['user', 'auth'],], function() 
     Route::post('/get/states', [CheckoutController::class, 'get_states'])->name('get_states');
     Route::post('/get/cities', [CheckoutController::class, 'get_cities'])->name('get_cities')->middleware("cors");
 
-    // my orders
-    Route::get('/my_order/index', [HomeController::class, 'my_order'])->name('my_order.index');
-    Route::get('/my_order/details/{order_summery_id}', [HomeController::class, 'my_order_details'])->name('my_order_details');
+     // my orders
+     Route::get('/my_order/index', [HomeController::class, 'my_order'])->name('my_order.index');
+     Route::get('/my_order/details/{order_summery_id}', [HomeController::class, 'my_order_details'])->name('my_order_details');
+     Route::get('/my_order/details/{order_summery_id}', [HomeController::class, 'my_order_details'])->name('my_order_details');
+
     Route::get('/invoice/download', [HomeController::class, 'invoicedownload'])->name('invoice.download');
     Route::get('/invoice/download/excel', [HomeController::class, 'invoicedownloadexcel'])->name('invoice.download.excel');
 
-    
+
 });

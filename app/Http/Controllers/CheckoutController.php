@@ -60,21 +60,21 @@ class CheckoutController extends Controller
         ]);
 
 
-        // Billing_details::insert([
-        //     'order_summery_id' => $order_summery_id,
-        //     'name' => $request->name,
-        //     'email' => $request->email,
-        //     'phone' => $request->phone,
-        //     'country_id' => $request->country,
-        //     'state_id' => $request->state,
-        //     'city_id' => $request->city,
-        //     'address' => $request->address,
-        //     'postcode' => $request->postcode,
-        //     'order_notes' => $request->message
-        // ]);
+        $billing_detail_id = Billing_details::insertGetId([
+            'order_summery_id' => $order_summery_id,
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'country_id' => $request->country,
+            'state_id' => $request->state,
+            'city_id' => $request->city,
+            'address' => $request->address,
+            'postcode' => $request->postcode,
+            'order_notes' => $request->message
+        ]);
 
         foreach (allcarts() as $cart) {
-            Order_detail::insertGetId([
+            Order_detail::insert([
                 'order_summery_id' => $order_summery_id,
                 'vendor_id' => $cart->vendor_id,
                 'product_id' => $cart->product_id,
@@ -86,22 +86,6 @@ class CheckoutController extends Controller
         }
 
 
-
-        $order = new Order();
-        $order->order_summery_id = $order_summery_id;
-        // $order->order_details_id = $order_details_id;
-        $order->user_id = auth()->id();
-        $order->name = $request->name;
-        $order->email = $request->email;
-        $order->phone = $request->phone;
-        $order->country_id = $request->country;
-        $order->state_id = $request->state;
-        $order->city_id = $request->city;
-        $order->address = $request->address;
-        $order->postcode = $request->postcode;
-        $order->message = $request->message;
-        $order->save();
-
         if (session('s_coupon_name')) {
             Coupon::where('coupon_name', session('s_coupon_name'))->decrement('limit', 1);
         }
@@ -112,8 +96,9 @@ class CheckoutController extends Controller
             return redirect('/')->with('success', 'Purchase Successfull');
 
         }else {
-            Session::put('s_order_summery_id', $order_summery_id);
-            return redirect('/pay');
+            Session::put(['s_order_summery_id'=> $order_summery_id, 's_billing_details_id' => $billing_detail_id]);
+            return redirect('/example1');
+            // return redirect('/pay');
         }
     }
 
