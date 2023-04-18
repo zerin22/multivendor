@@ -1,6 +1,6 @@
 @extends('layouts.backend.backend_master')
 @section('title', 'Order List')
-@section('myOrder', 'active')
+@section('vendorOrder', 'active')
 
 @section('content')
     <div class="content-header">
@@ -21,9 +21,9 @@
                         <tr>
                             <th scope="col">Order ID</th>
                             <th scope="col">Grand Total</th>
-                            {{-- <th scope="col">Payment Option</th>
+                            <th scope="col">Payment Option</th>
                             <th scope="col">Payment Status</th>
-                            <th scope="col">Received Status</th> --}}
+                            <th scope="col">Received Status</th>
                             <th scope="col">Action</th>
                         </tr>
                     </thead>
@@ -31,22 +31,22 @@
                         @forelse ($all_orders as $all_order)
                             <tr>
                                 <td>{{ $loop->index+1 }}</td>
-                                <td>{{  $all_order->vendor_id }}</td>
-                                {{-- <td>{{ $order_summery->payment_option == 0 ? 'COD' : 'Online' }}</td>
-                                <td>{{ $order_summery->payment_status == 0 ? 'Not Paid' : 'Paid' }}</td> --}}
-                                {{-- <td>
-                                    @if ( $order_summery->delivered_status == 0)
+                                <td>{{  $all_order->relationWithOrderSummery->grand_total }}</td>
+                                <td>{{ $all_order->payment_option == 0 ? 'COD' : 'Online' }}</td>
+                                <td>{{ $all_order->payment_status == 0 ? 'Not Paid' : 'Paid' }}</td>
+                                <td>
+                                    @if ( $all_order->delivered_status == 0)
                                         <span class="badge rounded-pill alert-danger">Pending</span>
                                     @else
                                         <span class="badge rounded-pill alert-success">Delivered</span>
                                     @endif
-                                </td> --}}
+                                </td>
                                 <td>
                                     <div class="dropdown">
                                         <a href="#" data-bs-toggle="dropdown" class="btn btn-light rounded btn-sm font-sm"> <i class="material-icons md-more_horiz"></i> </a>
                                         <div class="dropdown-menu">
                                             {{-- <a class="dropdown-item" href="">Detail</a> --}}
-                                            <a class="dropdown-item" href="{{ route('my_order_details', Crypt::encryptString($order_summery->id)) }}">Detail</a>
+                                            <a class="dropdown-item" href="{{ route('singleVendorOrder.show', $all_order->id) }}">Detail</a>
                                             <a class="dropdown-item" href="{{ route('invoice.download') }}">PDF Download</a>
                                             <a class="dropdown-item" href="{{ route('invoice.download.excel') }}">Excel Download</a>
                                         </div>

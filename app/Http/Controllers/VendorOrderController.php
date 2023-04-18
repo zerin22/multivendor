@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Order_detail;
 use App\Models\Order_summery;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class VendorOrderController extends Controller
 {
@@ -15,7 +16,7 @@ class VendorOrderController extends Controller
      */
     public function index()
     {
-        $all_orders = Order_detail::where('vendor_id', auth()->user()->id)->latest()->get();
+        $all_orders = Order_detail::where('vendor_id', Auth::id())->get();
         return view('singleVendorOrder.index_vendor_order', compact('all_orders'));
     }
 
@@ -48,7 +49,8 @@ class VendorOrderController extends Controller
      */
     public function show($id)
     {
-        //
+        $order = Order_detail::findOrFail($id);
+        return view('singleVendorOrder.show_vendor_order', compact('order'));
     }
 
     /**
