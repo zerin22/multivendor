@@ -23,4 +23,5 @@ class Order_detail extends Model
     {
         return $this->belongsTo(Order_summery::class, 'order_summery_id', 'id');
     }
+
 }

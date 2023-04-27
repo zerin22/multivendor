@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Billing_details;
 use App\Models\Order_detail;
 use App\Models\Order_summery;
 use Illuminate\Http\Request;
@@ -50,7 +51,8 @@ class VendorOrderController extends Controller
     public function show($id)
     {
         $order = Order_detail::findOrFail($id);
-        return view('singleVendorOrder.show_vendor_order', compact('order'));
+        $billing_id = Billing_details::where('order_summery_id', $order->order_summery_id)->first();
+        return view('singleVendorOrder.show_vendor_order', compact('order', 'billing_id'));
     }
 
     /**

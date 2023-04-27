@@ -15,9 +15,9 @@
         <div class="row align-items-center">
             <div class="col-lg-6 col-md-6 mb-lg-0 mb-15">
                 <span> <i class="material-icons md-calendar_today"></i> <b>{{ \Carbon\Carbon::parse($order->created_at, 'Y-m-d H:i:s')->diffForHumans() }}</b> </span> <br />
-                <small class="text-muted">Order ID: 3453012</small>
+                <small class="text-muted">Order ID: {{ $order->id }}</small>
             </div>
-            <div class="col-lg-6 col-md-6 ms-auto text-md-end">
+            {{-- <div class="col-lg-6 col-md-6 ms-auto text-md-end">
                 <select class="form-select d-inline-block mb-lg-0 mr-5 mw-200">
                     <option>Change status</option>
                     <option>Awaiting payment</option>
@@ -26,8 +26,7 @@
                     <option>Delivered</option>
                 </select>
                 <a class="btn btn-primary" href="#">Save</a>
-                <a class="btn btn-secondary print ms-2" href="#"><i class="icon material-icons md-print"></i></a>
-            </div>
+            </div> --}}
         </div>
     </header>
     <!-- card-header end// -->
@@ -41,11 +40,10 @@
                     <div class="text">
                         <h6 class="mb-1">Customer</h6>
                         <p class="mb-1">
-                            John Alexander <br />
-                            alex@example.com <br />
-                            +998 99 22123456
+                            {{ $order->relationWithOrderSummery->relationwithuser->name }}<br />
+                            {{ $order->relationWithOrderSummery->relationwithuser->email }} <br />
+                            {{ $order->relationWithOrderSummery->relationwithuser->phone }}
                         </p>
-                        <a href="#">View profile</a>
                     </div>
                 </article>
             </div>
@@ -58,11 +56,21 @@
                     <div class="text">
                         <h6 class="mb-1">Order info</h6>
                         <p class="mb-1">
-                            Shipping: Fargo express <br />
-                            Pay method: card <br />
-                            Status: new
+                            {{-- Shipping: Fargo express <br /> --}}
+                            Pay method:
+                            @if ($order->relationWithOrderSummery->payment_option == 0)
+                                Cash On Delivery
+                            @else
+                                Online Payment
+                            @endif
+                            <br />
+                            Status:
+                            @if ($order->relationWithOrderSummery->delivered_status == 0)
+                                Not Delivered
+                            @else
+                               Delivered
+                            @endif
                         </p>
-                        <a href="#">Download info</a>
                     </div>
                 </article>
             </div>
@@ -75,10 +83,11 @@
                     <div class="text">
                         <h6 class="mb-1">Deliver to</h6>
                         <p class="mb-1">
-                            City: Tashkent, Uzbekistan <br />Block A, House 123, Floor 2 <br />
-                            Po Box 10000
+                            State: {{ $billing_id->relationWithState->name }},
+                            City: {{ $billing_id->relationWithCity->name }}, {{ $billing_id->relationWithCountry->name }} <br />
+                            {{ $billing_id->address }} <br />
+                            {{ $billing_id->postcode }}
                         </p>
-                        <a href="#">View profile</a>
                     </div>
                 </article>
             </div>
@@ -177,7 +186,6 @@
                         </tbody>
                     </table>
                 </div>
-                <!-- table-responsive// -->
             </div>
             <!-- col// -->
             <div class="col-lg-1"></div>
@@ -198,10 +206,8 @@
                     <button class="btn btn-primary">Save note</button>
                 </div>
             </div>
-            <!-- col// -->
         </div>
     </div>
-    <!-- card-body end// -->
 </div>
 
 @endsection

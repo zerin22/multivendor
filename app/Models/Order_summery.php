@@ -15,4 +15,5 @@ class Order_summery extends Model
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
+
 }
