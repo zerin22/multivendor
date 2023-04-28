@@ -24,7 +24,7 @@ class CreateOrderSummeriesTable extends Migration
             $table->integer('payment_option');
             $table->integer('payment_status')->default('0');
             $table->string('coupon_name')->nullable();
-            $table->integer('delivered_status')->default('0');
+            $table->integer('delivered_status')->default('0')->comment('0 = pending, 1 = accepted, 2 = delivered, 3 = cancle');
             $table->timestamps();
         });
     }

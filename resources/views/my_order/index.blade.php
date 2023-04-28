@@ -26,15 +26,21 @@
                             <td>
                                 @if ($order_summery->delivered_status == 0)
                                     Pending
-                                @else
+                                @elseif ($order_summery->delivered_status == 2)
                                     Delivered
+                                @elseif ($order_summery->delivered_status == 3)
+                                    Cancel
+                                @elseif ($order_summery->delivered_status == 1)
+                                    Accepted
                                 @endif
                             </td>
                             <td>
-                                <a href="{{ route('my_order_details', Crypt::encryptString($order_summery->id)) }}"
-                                    class="btn btn-info">Details</a>
-                                <a href="{{ route('invoice.download') }}" class="btn btn-success">PDF Download</a>
-                                <a href="{{ route('invoice.download.excel') }}" class="btn btn-success">Excel Download</a>
+                                <td class="d-flex">
+                                    <a class="btn btn-outline-info" href="{{ route('my_order_details', Crypt::encryptString($order_summery->id)) }}">Details</a>
+                                    @if ($order_summery->delivered_status != 3)
+                                        <a class="btn btn-outline-warning mx-2" href="{{ route('user.order.status', $order_summery->id) }}">Cancle</a>
+                                    @endif
+                                </td>
                             </td>
                         </tr>
                     @empty

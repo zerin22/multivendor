@@ -17,7 +17,7 @@ class VendorOrderController extends Controller
      */
     public function index()
     {
-        $all_orders = Order_detail::where('vendor_id', Auth::id())->get();
+        $all_orders = Order_detail::where('vendor_id', Auth::id())->select('order_summery_id')->distinct()->get();
         return view('singleVendorOrder.index_vendor_order', compact('all_orders'));
     }
 
@@ -50,9 +50,10 @@ class VendorOrderController extends Controller
      */
     public function show($id)
     {
-        $order = Order_detail::findOrFail($id);
-        $billing_id = Billing_details::where('order_summery_id', $order->order_summery_id)->first();
-        return view('singleVendorOrder.show_vendor_order', compact('order', 'billing_id'));
+        $order = Order_summery::findOrFail($id);
+        $billing_detail = Billing_details::where('order_summery_id', $id)->first();
+        $order_details = Order_detail::where('order_summery_id', $id)->get();
+        return view('singleVendorOrder.show_vendor_order', compact('order', 'billing_detail', 'order_details'));
     }
 
     /**
@@ -88,4 +89,11 @@ class VendorOrderController extends Controller
     {
         //
     }
+
+    public function order_status_change(Request $request)
+    {
+        Order_summery::findOrFail($request->status_id)->update(['delivered_status' => $request->status]);
+        return response()->json();
+    }
+
 }

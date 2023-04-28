@@ -32,13 +32,17 @@
                             <tr>
                                 <td>{{ $loop->index+1 }}</td>
                                 <td>{{  $all_order->relationWithOrderSummery->grand_total }}</td>
-                                <td>{{ $all_order->payment_option == 0 ? 'COD' : 'Online' }}</td>
-                                <td>{{ $all_order->payment_status == 0 ? 'Not Paid' : 'Paid' }}</td>
+                                <td>{{ $all_order->relationWithOrderSummery->payment_option == 0 ? 'COD' : 'Online' }}</td>
+                                <td>{{ $all_order->relationWithOrderSummery->payment_status == 0 ? 'Not Paid' : 'Paid' }}</td>
                                 <td>
-                                    @if ( $all_order->delivered_status == 0)
-                                        <span class="badge rounded-pill alert-danger">Pending</span>
-                                    @else
+                                    @if ( $all_order->relationWithOrderSummery->delivered_status == 0)
+                                        <span class="badge rounded-pill alert-warning">Pending</span>
+                                    @elseif ($all_order->relationWithOrderSummery->delivered_status == 2)
                                         <span class="badge rounded-pill alert-success">Delivered</span>
+                                    @elseif ($all_order->relationWithOrderSummery->delivered_status == 1)
+                                        <span class="badge rounded-pill alert-info">Accepted</span>
+                                    @elseif ($all_order->relationWithOrderSummery->delivered_status == 3)
+                                        <span class="badge rounded-pill alert-danger">Cancle</span>
                                     @endif
                                 </td>
                                 <td>
@@ -46,9 +50,9 @@
                                         <a href="#" data-bs-toggle="dropdown" class="btn btn-light rounded btn-sm font-sm"> <i class="material-icons md-more_horiz"></i> </a>
                                         <div class="dropdown-menu">
                                             {{-- <a class="dropdown-item" href="">Detail</a> --}}
-                                            <a class="dropdown-item" href="{{ route('singleVendorOrder.show', $all_order->id) }}">Detail</a>
-                                            <a class="dropdown-item" href="{{ route('invoice.download') }}">PDF Download</a>
-                                            <a class="dropdown-item" href="{{ route('invoice.download.excel') }}">Excel Download</a>
+                                            <a class="dropdown-item" href="{{ route('singleVendorOrder.show', $all_order->order_summery_id) }}">Detail</a>
+                                            {{-- <a class="dropdown-item" href="{{ route('invoice.download') }}">PDF Download</a>
+                                            <a class="dropdown-item" href="{{ route('invoice.download.excel') }}">Excel Download</a> --}}
                                         </div>
                                     </div>
                                 </td>

@@ -34,9 +34,9 @@
                             </td>
                             <td>{{ $product->product_quantity }}</td>
                             <td>{{ App\Models\Category::find($product->category_id)->category_name }}</td>
-                            <td>
+                            <td class="d-flex">
                                 <a class="btn btn-outline-info" href="{{ route('product.edit', $product->id) }}">Edit</a>
-                                <a class="btn btn-outline-warning"
+                                <a class="btn btn-outline-warning mx-2"
                                     href="{{ route('product.show', $product->id) }}">Show</a>
                                 <form action="{{ route('product.destroy', $product->id) }}" method="post">
                                     @csrf

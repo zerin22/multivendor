@@ -54,10 +54,14 @@
                         <th>Delivery Status</th>
                         <td>
                             @if ($order_summeries->delivered_status == 0)
-                                Pending
-                            @else
-                                Delivered
-                            @endif
+                                    Pending
+                                @elseif ($order_summeries->delivered_status == 2)
+                                    Delivered
+                                @elseif ($order_summeries->delivered_status == 3)
+                                    Cancel
+                                @elseif ($order_summeries->delivered_status == 1)
+                                    Accepted
+                                @endif
                         </td>
                     </tr>
                 </tbody>

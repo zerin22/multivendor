@@ -109,6 +109,7 @@ Route::group(['prefix' => 'vendor', 'middleware'=> ['vendor', 'auth'],], functio
     Route::resource('size', SizeController::class);
 
     Route::resource('singleVendorOrder', VendorOrderController::class);
+    Route::post('singleVendorOrder/status', [VendorOrderController::class, 'order_status_change'])->name('vendor.status.change');
 
 
 });
@@ -136,6 +137,8 @@ Route::group(['prefix' => 'user', 'middleware'=> ['user', 'auth'],], function() 
 
      // my orders
      Route::get('/my_order/index', [HomeController::class, 'my_order'])->name('my_order.index');
+     Route::get('/my_order/status/{id}', [HomeController::class, 'order_status'])->name('user.order.status');
+
      Route::get('/my_order/details/{order_summery_id}', [HomeController::class, 'my_order_details'])->name('my_order_details');
      Route::get('/my_order/details/{order_summery_id}', [HomeController::class, 'my_order_details'])->name('my_order_details');
 

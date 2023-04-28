@@ -16,4 +16,9 @@ class Order_summery extends Model
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
+    public function relationWithOrderDetails()
+    {
+        return $this->hasMany(Order_detail::class);
+    }
+
 }

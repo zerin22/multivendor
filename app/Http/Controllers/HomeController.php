@@ -102,6 +102,14 @@ class HomeController extends Controller
         ]);
     }
 
+    public function order_status($id)
+    {
+        Order_summery::findOrFail($id)->update([
+            'delivered_status' => '3',
+        ]);
+        return back();
+    }
+
     public function my_order_details($order_summery_id)
     {
         return view('my_order.order_details', [

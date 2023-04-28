@@ -115,7 +115,7 @@
                     <a href="{{ route('product.create') }}" class="@yield('product.add')">Add product</a>
                 </div>
             </li>
-
+{{--
             <li class="menu-item has-submenu @yield('size')">
                 <a class="menu-link" href="{{ route('size.index') }}">
                     <i class="icon material-icons md-add_box"></i>
@@ -125,7 +125,7 @@
                     <a href="{{ route('size.index') }}" class="@yield('size.index')">Size List</a>
                     <a href="{{ route('size.create') }}" class="@yield('size.add')">Add Size</a>
                 </div>
-            </li>
+            </li> --}}
 
             <li class="menu-item @yield('vendorOrder')">
                 <a class="menu-link" href="{{ route('singleVendorOrder.index') }}">
