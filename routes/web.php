@@ -17,6 +17,7 @@ use App\Http\Controllers\{
     CheckoutController,
     SizeController,
     ContactController,
+    SettingController,
     UserController,
     VendorOrderController
 };
@@ -99,6 +100,7 @@ Route::group(['prefix' => 'admin', 'middleware'=> ['admin', 'auth'],], function(
 
     //Contact Message Show
     Route::resource('contact', ContactController::class);
+    Route::resource('setting', SettingController::class);
 });
 
 Route::group(['prefix' => 'vendor', 'middleware'=> ['vendor', 'auth'],], function() {

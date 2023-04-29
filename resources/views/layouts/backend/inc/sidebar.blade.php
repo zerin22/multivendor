@@ -104,6 +104,13 @@
                 </a>
             </li>
 
+            <li class="menu-item @yield('setting')">
+                <a class="menu-link" href="{{ route('setting.index') }}">
+                    <i class="icon icon material-icons md-settings"></i>
+                    <span class="text">Settings</span>
+                </a>
+            </li>
+
         @elseif(Auth::user()->role == 3)
             <li class="menu-item has-submenu @yield('product')">
                 <a class="menu-link" href="{{ route('product.index') }}">

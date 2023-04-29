@@ -29,7 +29,7 @@
                                 @elseif ($order_summery->delivered_status == 2)
                                     Delivered
                                 @elseif ($order_summery->delivered_status == 3)
-                                    Cancel
+                                    Cancelled
                                 @elseif ($order_summery->delivered_status == 1)
                                     Accepted
                                 @endif
@@ -38,7 +38,7 @@
                                 <td class="d-flex">
                                     <a class="btn btn-outline-info" href="{{ route('my_order_details', Crypt::encryptString($order_summery->id)) }}">Details</a>
                                     @if ($order_summery->delivered_status != 3)
-                                        <a class="btn btn-outline-warning mx-2" href="{{ route('user.order.status', $order_summery->id) }}">Cancle</a>
+                                        <a class="btn btn-outline-warning mx-2" href="{{ route('user.order.status', $order_summery->id) }}">Cancel</a>
                                     @endif
                                 </td>
                             </td>

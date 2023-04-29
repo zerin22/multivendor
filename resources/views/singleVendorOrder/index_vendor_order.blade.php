@@ -42,7 +42,7 @@
                                     @elseif ($all_order->relationWithOrderSummery->delivered_status == 1)
                                         <span class="badge rounded-pill alert-info">Accepted</span>
                                     @elseif ($all_order->relationWithOrderSummery->delivered_status == 3)
-                                        <span class="badge rounded-pill alert-danger">Cancle</span>
+                                        <span class="badge rounded-pill alert-danger">Cancelled</span>
                                     @endif
                                 </td>
                                 <td>

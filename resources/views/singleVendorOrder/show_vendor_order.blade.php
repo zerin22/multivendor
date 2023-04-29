@@ -24,7 +24,7 @@
                 <select class="form-select d-inline-block mb-lg-0 mr-5 mw-200 status-change" >
                     <option value="0" {{ $order->delivered_status == 0 ? 'selected' : '' }}>Pending</option>
                     <option value="1" {{ $order->delivered_status == 1 ? 'selected' : '' }}>Accepted</option>
-                    <option value="3" {{ $order->delivered_status == 3 ? 'selected' : '' }}>Cancel</option>
+                    <option value="3" {{ $order->delivered_status == 3 ? 'selected' : '' }}>Cancelled</option>
                     <option value="2" {{ $order->delivered_status == 2 ? 'selected' : '' }}>Delivered</option>
                 </select>
                 {{-- <a class="btn btn-primary" href="{{  }}">Save</a> --}}
